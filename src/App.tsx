@@ -1,16 +1,19 @@
-
-
+import { Outlet } from "react-router";
+import Navbar from "./Layouts/Navbar";
+import Footer from "./Layouts/Footer";
 
 function App() {
-
-
   return (
-    <>
-      
-      <h1>Vite + React</h1>
-      
-    </>
-  )
+    <div>
+      <Navbar />
+
+      <div className="min-h-screen max-w-screen-2xl mx-auto">
+        <Outlet />
+      </div>
+
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
