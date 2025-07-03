@@ -22,4 +22,4 @@ export const bookAPi = createApi({
   }),
 });
 
-const { useAddBookMutation, useGetAllBookQuery } = bookAPi;
+export const { useAddBookMutation, useGetAllBookQuery } = bookAPi;
