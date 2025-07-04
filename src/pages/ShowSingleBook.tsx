@@ -37,11 +37,12 @@ const ShowSingleBook = () => {
     defaultValues: { quantity: 1, dueDate: "" },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: { quantity: number; dueDate: any; }) => {
     if (data.quantity > bookData?.data?.copies) {
       toast.error(`Quantity cannot exceed ${bookData?.data?.copies} copies.`);
       return;
     }
+    console.log(data);
 
     try {
       await borrowBook({
