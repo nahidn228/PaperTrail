@@ -2,7 +2,7 @@ import {
   useGetSingleBookQuery,
   useUpdateBookMutation,
 } from "@/redux/API/bookApi";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,6 +30,7 @@ import Loading from "@/components/Loading";
 
 const SingleBook = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data: bookData } = useGetSingleBookQuery(id);
 
@@ -53,7 +54,8 @@ const SingleBook = () => {
     try {
       const res = await updateBook({ id, ...data }).unwrap();
       console.log(res);
-      toast.success("Book updated!");
+      toast.success("Book updated successfully!");
+      navigate("/books");
     } catch (err) {
       console.log(err);
       toast.error("Failed to update book");

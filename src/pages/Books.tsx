@@ -53,7 +53,7 @@ const Books = () => {
   return (
     <div className="p-8 ">
       <h2 className="text-xl font-semibold mb-4">📚 Book List</h2>
-      <div className="max-w-screen mx-auto min-h-[calc(100vh-200px)]  border rounded-2xl p-8 shadow-xl">
+      <div className="max-w-screen mx-auto min-h-[calc(100vh-200px)]  border dark:border-[#4ECDC4] rounded-2xl p-8 shadow-xl">
         <Table>
           <TableHeader>
             <TableRow>

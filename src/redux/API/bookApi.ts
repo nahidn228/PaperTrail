@@ -51,7 +51,7 @@ export const bookAPi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["borrow"],
+      invalidatesTags: ["books"],
     }),
 
     borrowGetAllBook: builder.query({
