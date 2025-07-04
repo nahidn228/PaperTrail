@@ -1,3 +1,5 @@
+import { useGetSingleBookQuery } from "@/redux/API/bookApi";
+import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,15 +20,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useAddBookMutation } from "@/redux/API/bookApi";
-import Loading from "@/components/Loading";
-import { toast } from "sonner";
-import type { IBookData } from "@/types/types";
 
+const SingleBook = () => {
+  const { id } = useParams();
+  console.log(id);
 
+  const { data, isLoading } = useGetSingleBookQuery(id);
 
-const AddBook = () => {
-  const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
+  const book = data.data
+
+  console.log(book);
 
   const form = useForm({
     defaultValues: {
@@ -42,16 +45,13 @@ const AddBook = () => {
     },
   });
 
-  const onSubmit = async (data: IBookData) => {
-    const res = await addBook(data);
-    if (isError) return toast("Ops! your Book is Not Added. Try Again");
-    if (isSuccess) return toast("Your Book has been created.");
-    console.log(res);
-    form.reset();
+  const onSubmit = async (book: IBookData) => {
+    // const res = await addBook(data);
+    // if (isError) return toast("Ops! your Book is Not Added. Try Again");
+    // if (isSuccess) return toast("Your Book has been created.");
+    // console.log(res);
+    // form.reset();
   };
-
-  // if (isLoading) return <Loading text="Adding Your Book" />;
-  // if (isError) return <Loading text="Ops! your Book is Not Added. Try Again" />;
 
   return (
     <div className="py-10">
@@ -213,11 +213,7 @@ const AddBook = () => {
             />
 
             <Button type="submit" className="w-full">
-              {isLoading && <Loading text="Adding Your Book" />}
-              {isError && (
-                <Loading text="Ops! your Book is Not Added. Try Again" />
-              )}
-              {!isLoading && !isError && "Add Book"}
+             Update book
             </Button>
           </form>
         </Form>
@@ -226,4 +222,4 @@ const AddBook = () => {
   );
 };
 
-export default AddBook;
+export default SingleBook;
