@@ -20,11 +20,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Pencil, Trash2 } from "lucide-react";
+import { Inspect, Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router";
 import type { IBook } from "@/types/types";
-
-
 
 const Books = () => {
   const { data: books, isLoading } = useGetAllBookQuery(null);
@@ -33,7 +31,6 @@ const Books = () => {
 
   console.log(books.data);
 
-  
   const handleDelete = (id) => {
     console.log(id);
   };
@@ -67,41 +64,21 @@ const Books = () => {
                 </TableCell>
                 <TableCell>
                   <div className="space-x-3">
+                    <Button
+                      className="cursor-pointer border-[#4ECDC4]"
+                      variant="outline"
+                      size={"sm"}
+                    >
+                      <Link to={`/books/${book._id}`}>
+                        <Inspect className="w-5 h-5 " />
+                      </Link>
+                    </Button>
                     {/* Edit and Borrow Action */}
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button className="text-sm" size={"icon"}>
-                          <Pencil className="w-5 h-5 text-[#4ECDC4] dark:text-black hover:text-[#152942] cursor-pointer" />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[425px]">
-                        <DialogHeader>
-                          <DialogTitle>Make action</DialogTitle>
-                          <DialogDescription>
-                            Select which Action you need
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="flex gap-2">
-                          <Button variant="outline" size={"sm"}>
-                            <Link to={`/books/${book._id}`}>Edit Book</Link>
-                          </Button>
-                          <Button variant="outline" size={"sm"}>
-                            <Link to={`/borrow/${book._id}`}> Borrow Book</Link>
-                          </Button>
-                        </div>
-
-                        <DialogFooter>
-                          <DialogClose asChild>
-                            <Button>Close Action</Button>
-                          </DialogClose>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
 
                     {/* Delete Book */}
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button>
+                        <Button variant="outline" className="cursor-pointer border-[#4ECDC4]">
                           <Trash2 className="w-5 h-5 text-[#ED4250] hover:text-[#152942] cursor-pointer" />
                         </Button>
                       </DialogTrigger>
@@ -117,11 +94,11 @@ const Books = () => {
 
                         <DialogFooter>
                           <DialogClose asChild>
-                            <Button>Cancel</Button>
+                            <Button className="cursor-pointer">Cancel</Button>
                           </DialogClose>
                           <Button
                             onClick={() => handleDelete(book._id)}
-                            className="bg-orange-600"
+                            className="bg-orange-600 cursor-pointer"
                           >
                             Delete Book
                           </Button>

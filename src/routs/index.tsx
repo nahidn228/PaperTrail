@@ -3,6 +3,7 @@ import AddBook from "@/pages/AddBook";
 import Books from "@/pages/Books";
 import ErrorPage from "@/pages/ErrorPage";
 import Home from "@/pages/Home";
+import ShowSingleBook from "@/pages/ShowSingleBook";
 import SingleBook from "@/pages/SingleBook";
 import { createBrowserRouter } from "react-router";
 
@@ -25,12 +26,12 @@ const router = createBrowserRouter([
         element: <AddBook />,
       },
       {
-        path: "/books/:id",
+        path: "/edit-book/:id",
         element: <SingleBook />,
       },
       {
-        path: "/edit-book/:id",
-        element: <AddBook />,
+        path: "/books/:id",
+        element: <ShowSingleBook />,
       },
     ],
   },

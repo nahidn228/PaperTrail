@@ -1,4 +1,7 @@
-import { useGetSingleBookQuery } from "@/redux/API/bookApi";
+import {
+  useGetSingleBookQuery,
+  useUpdateBookMutation,
+} from "@/redux/API/bookApi";
 import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -20,16 +23,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import type { IBookData } from "@/types/types";
+import Loading from "@/components/Loading";
 
 const SingleBook = () => {
   const { id } = useParams();
-  console.log(id);
 
-  const { data, isLoading } = useGetSingleBookQuery(id);
+  const { data: bookData } = useGetSingleBookQuery(id);
 
-  const book = data.data
-
-  console.log(book);
+  const [updateBook, { isLoading }] = useUpdateBookMutation();
 
   const form = useForm({
     defaultValues: {
@@ -45,18 +49,37 @@ const SingleBook = () => {
     },
   });
 
-  const onSubmit = async (book: IBookData) => {
-    // const res = await addBook(data);
-    // if (isError) return toast("Ops! your Book is Not Added. Try Again");
-    // if (isSuccess) return toast("Your Book has been created.");
-    // console.log(res);
-    // form.reset();
+  const onSubmit = async (data: IBookData) => {
+    try {
+      const res = await updateBook({ id, ...data }).unwrap();
+      console.log(res);
+      toast.success("Book updated!");
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to update book");
+    }
   };
+
+  useEffect(() => {
+    if (bookData) {
+      form.reset({
+        title: bookData?.data?.title || "",
+        author: bookData?.data.author || "",
+        genre: bookData?.data.genre || "",
+        isbn: bookData?.data.isbn || "",
+        description: bookData?.data.description || "",
+        copies: bookData?.data.copies || 0,
+        price: bookData?.data.price || 0,
+        available: bookData?.data.available ?? true,
+        photo: bookData?.data.photo || "",
+      });
+    }
+  }, [bookData, form]);
 
   return (
     <div className="py-10">
       <h2 className="text-[#152942] dark:text-white mb-6 text-center font-bold text-4xl">
-        Add Your Books
+        {bookData?.data?.title}
       </h2>
       <div className="max-w-2xl mx-auto  border rounded-2xl p-8 shadow-xl">
         <Form {...form}>
@@ -95,10 +118,7 @@ const SingleBook = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Genre</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select genre" />
@@ -213,7 +233,7 @@ const SingleBook = () => {
             />
 
             <Button type="submit" className="w-full">
-             Update book
+              {isLoading ? <Loading text="Updating" /> : "Update book"}
             </Button>
           </form>
         </Form>
