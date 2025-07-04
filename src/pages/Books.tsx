@@ -1,5 +1,5 @@
 import Loading from "@/components/Loading";
-import { useGetAllBookQuery } from "@/redux/API/bookApi";
+import { useDeleteBookMutation, useGetAllBookQuery } from "@/redux/API/bookApi";
 import {
   Table,
   TableBody,
@@ -20,19 +20,34 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Inspect, Pencil, Trash2 } from "lucide-react";
+import { Inspect, Trash2 } from "lucide-react";
 import { Link } from "react-router";
 import type { IBook } from "@/types/types";
+import { toast } from "sonner";
 
 const Books = () => {
   const { data: books, isLoading } = useGetAllBookQuery(null);
+  const [deleteBook, { isLoading: loadingDelete }] = useDeleteBookMutation();
 
   if (isLoading) return <Loading text=" Getting Book from server " />;
 
-  console.log(books.data);
+  // console.log(books.data);
 
-  const handleDelete = (id) => {
+  const handleDelete = async (book: IBook) => {
+    const id = book?._id;
     console.log(id);
+    if (!id) {
+      toast.error("Book ID is missing, cannot delete");
+      return;
+    }
+    try {
+      const res = await deleteBook(id).unwrap();
+      console.log(res);
+      toast.success(`${book.title} is successfully deleted`);
+    } catch (error) {
+      toast.error(`${book.title} is not deleted`);
+      console.log(error);
+    }
   };
 
   return (
@@ -78,7 +93,10 @@ const Books = () => {
                     {/* Delete Book */}
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant="outline" className="cursor-pointer border-[#4ECDC4]">
+                        <Button
+                          variant="outline"
+                          className="cursor-pointer border-[#4ECDC4]"
+                        >
                           <Trash2 className="w-5 h-5 text-[#ED4250] hover:text-[#152942] cursor-pointer" />
                         </Button>
                       </DialogTrigger>
@@ -97,10 +115,14 @@ const Books = () => {
                             <Button className="cursor-pointer">Cancel</Button>
                           </DialogClose>
                           <Button
-                            onClick={() => handleDelete(book._id)}
+                            onClick={() => handleDelete(book)}
                             className="bg-orange-600 cursor-pointer"
                           >
-                            Delete Book
+                            {loadingDelete ? (
+                              <Loading text="Deleting..." />
+                            ) : (
+                              "Delete Book"
+                            )}
                           </Button>
                         </DialogFooter>
                       </DialogContent>

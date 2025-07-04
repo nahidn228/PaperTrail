@@ -22,10 +22,10 @@ import { useAddBookMutation } from "@/redux/API/bookApi";
 import Loading from "@/components/Loading";
 import { toast } from "sonner";
 import type { IBookData } from "@/types/types";
-
-
+import { useNavigate } from "react-router";
 
 const AddBook = () => {
+  const navigate = useNavigate();
   const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
 
   const form = useForm({
@@ -48,6 +48,7 @@ const AddBook = () => {
     if (isSuccess) return toast("Your Book has been created.");
     console.log(res);
     form.reset();
+    navigate("/books");
   };
 
   // if (isLoading) return <Loading text="Adding Your Book" />;
