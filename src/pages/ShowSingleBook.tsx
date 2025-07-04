@@ -1,12 +1,61 @@
-import { Link, useParams } from "react-router";
-import { useGetSingleBookQuery } from "@/redux/API/bookApi";
+import { Link, useParams, useNavigate } from "react-router";
+import {
+  useBorrowAddBookMutation,
+  useGetSingleBookQuery,
+} from "@/redux/API/bookApi";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
-
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 
 const ShowSingleBook = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: bookData, isLoading, isError } = useGetSingleBookQuery(id);
+  const [borrowBook, { isLoading: borrowLoading }] = useBorrowAddBookMutation();
+
+  const form = useForm({
+    defaultValues: { quantity: 1, dueDate: "" },
+  });
+
+  const onSubmit = async (data) => {
+    if (data.quantity > bookData?.data?.copies) {
+      toast.error(`Quantity cannot exceed ${bookData?.data?.copies} copies.`);
+      return;
+    }
+
+    try {
+      await borrowBook({
+        bookId: bookData?.data?._id,
+        quantity: data.quantity,
+        dueDate: data.dueDate,
+      }).unwrap();
+      toast.success("Book borrowed successfully!");
+      navigate("/borrow-summary");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to borrow book.");
+    }
+  };
 
   if (isLoading) {
     return (
@@ -32,7 +81,6 @@ const ShowSingleBook = () => {
         {book.title}
       </h2>
       <div className="flex flex-col md:flex-row items-center gap-6">
-        {/* Left: Book image */}
         <div className="flex-shrink-0">
           <img
             src={book.photo}
@@ -40,7 +88,6 @@ const ShowSingleBook = () => {
             className="w-48 h-72 object-cover rounded-lg shadow"
           />
         </div>
-        {/* Right: Book details */}
         <div className="flex-1 space-y-2">
           <p>
             <span className="font-semibold text-[#152942] dark:text-[#4ECDC4]">
@@ -88,12 +135,74 @@ const ShowSingleBook = () => {
       </div>
 
       <div className="flex justify-center gap-2 py-6">
-        <Button className="cursor-pointer border-[#4ECDC4] dark:border-[#4ECDC4]" variant="outline" size={"sm"}>
+        <Button
+          variant="outline"
+          size="sm"
+          className="cursor-pointer border-[#4ECDC4] dark:border-[#4ECDC4]"
+        >
           <Link to={`/edit-book/${book._id}`}>Edit Book</Link>
         </Button>
-        <Button className="cursor-pointer "  size={"sm"}>
-          <Link to={`/borrow/${book._id}`}> Borrow Book</Link>
-        </Button>
+
+        {/* Borrow Dialog */}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button size="sm">Borrow Book</Button>
+          </DialogTrigger>
+
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Borrow "{book.title}"</DialogTitle>
+              <DialogDescription>
+                Fill details and click Confirm Borrow
+              </DialogDescription>
+            </DialogHeader>
+
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="quantity"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Quantity (max {book.copies})</FormLabel>
+                      <FormControl>
+                        <Input type="number" min={1} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="dueDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Due Date</FormLabel>
+                      <FormControl>
+                        <Input type="date" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button type="button" variant="outline">
+                      Cancel
+                    </Button>
+                  </DialogClose>
+                  <Button type="submit" disabled={borrowLoading}>
+                    {borrowLoading ? "Borrowing..." : "Confirm Borrow"}
+                  </Button>
+                </DialogFooter>
+              </form>
+            </Form>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
