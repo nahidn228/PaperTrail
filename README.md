@@ -42,6 +42,7 @@ src/
 ├── types/               # TypeScript interfaces and types
 └── App.tsx
 └── main.tsx
+```
 
 ## 🛠 Setup & Run
 
