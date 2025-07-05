@@ -1,5 +1,5 @@
 export interface IBook {
-  _id: string;
+  _id?: string;
   title: string;
   author: string;
   genre: string;
@@ -8,8 +8,8 @@ export interface IBook {
   available: boolean;
 }
 
-
 export type IBookData = {
+  _id?: string;
   title: string;
   author: string;
   genre: string;

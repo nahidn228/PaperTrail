@@ -1,69 +1,91 @@
-# React + TypeScript + Vite
+# 📚 PaperTrail – Minimal Library Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, responsive library management app built with **React**, **TypeScript**, and **Redux Toolkit Query**.  
+Manage books effortlessly: add, edit, delete, borrow, and view borrow summaries — all without authentication.  
+Focuses on simplicity, type safety, and smooth real-time UI updates.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+✅ View all books in a clean, responsive table  
+✅ Add, edit, and delete books  
+✅ Borrow books with quantity and due date  
+✅ Borrow summary page showing total quantity borrowed per book  
+✅ Instant UI updates with RTK Query cache  
+✅ Type-safe forms with React Hook Form & TypeScript  
+✅ Toast notifications on actions  
+✅ Fully responsive design built with Tailwind CSS and ShadCN UI
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ⚙️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+| Layer        | Technology                             |
+| ------------ | ---------------------------------------|
+| Frontend     | React, TypeScript, Tailwind CSS        |
+| State        | Redux Toolkit + RTK Query              |
+| Backend      | Node.js, Express.js, MongoDB, Mongoose |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📂 Project Structure (Frontend)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```plaintext
+src/
+├── assets/ 
+├── components/          # Shared components (Loading, Navbar, etc.)
+├── Layouts/ 
+├── pages/               # Pages: AllBooks, CreateBook, EditBook, BorrowSummary, etc.
+├── redux/API/          # RTK Query API slices
+├── routs/ 
+├── types/               # TypeScript interfaces and types
+└── App.tsx
+└── main.tsx
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠 Setup & Run
+
+1️⃣ **Clone this repo**
+```bash
+git clone https://github.com/yourusername/papertrail.git
+cd papertrail
+
+
+2️⃣ **Install dependencies**
+```bash
+npm install
+
+3️⃣ **Start development server**
+```bash
+npm run dev
+
+4️⃣ **Make sure your backend server is running**
+Example: http://localhost:5000/api
+
+
+## 🌱 Backend Overview
+Built with **Node.js**, **Express**, and **MongoDB**:
+- CRUD for books
+- Borrow books & maintain borrow summary
+- Modular controller-service-repository structure
+- Aggregation pipeline to get borrow summary
+
+---
+
+## 📌 Pages
+
+- `/books` – View all books with Edit, Delete, Borrow
+- `/create-book` – Add new book
+- `/books/:id` – Book detail view
+- `/edit-book/:id` – Edit book details
+- `/borrow-summary` – View borrow summary
+
+---
+
+## 🧰 Key Highlights
+
+- 📦 **RTK Query** for API integration & cache updates
+- 🧪 **Type-safe** forms and API responses
+- 🍞 **Toast notifications** on CRUD actions
+- ⚡ **Optimistic UI updates** for better UX
+- 📱 **Fully responsive design**

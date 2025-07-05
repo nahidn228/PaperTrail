@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { useEffect } from "react";
 import { toast } from "sonner";
-import type { IBookData } from "@/types/types";
+import type { IBook } from "@/types/types";
 import Loading from "@/components/Loading";
 
 const SingleBook = () => {
@@ -50,7 +50,7 @@ const SingleBook = () => {
     },
   });
 
-  const onSubmit = async (data: IBookData) => {
+  const onSubmit = async (data: IBook) => {
     try {
       const res = await updateBook({ id, ...data }).unwrap();
       console.log(res);
