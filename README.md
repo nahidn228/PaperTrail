@@ -49,15 +49,17 @@ src/
 ```bash
 git clone https://github.com/yourusername/papertrail.git
 cd papertrail
-
+```
 
 2️⃣ **Install dependencies**
 ```bash
 npm install
+```
 
 3️⃣ **Start development server**
 ```bash
 npm run dev
+```
 
 4️⃣ **Make sure your backend server is running**
 Example: http://localhost:5000/api
