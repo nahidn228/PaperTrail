@@ -30,8 +30,8 @@ const Navbar = () => {
             to={to}
             className={({ isActive }) =>
               isActive
-                ? "font-medium text-[#4ECDC4] underline underline-offset-4"
-                : "font-medium text-foreground hover:text-[#4ECDC4] transition"
+                ? "font-medium text-[#7420E6] underline underline-offset-5"
+                : "font-medium text-foreground hover:text-[#7420E6] transition"
             }
           >
             {label}
@@ -42,8 +42,8 @@ const Navbar = () => {
   );
 
   return (
-    <div className="sticky top-0 z-50 border-b border-border bg-white  dark:bg-background">
-      <div className="max-w-screen-2xl mx-auto px-4 py-2 flex items-center justify-between">
+    <div className="sticky top-0 z-50 border-b border-border bg-white  dark:bg-background max-w-screen-xl mx-auto ">
+      <div className="  py-2 flex items-center justify-between">
         {/* Left: Logo & mobile menu */}
         <div className="flex items-center gap-4">
           <div className="lg:hidden">
@@ -87,7 +87,7 @@ const Navbar = () => {
             <DropdownMenuTrigger asChild>
               <div className="tooltip tooltip-bottom" data-tip={"User"}>
                 <div className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full overflow-hidden ring-2 ring-[#4ECDC4] hover:ring-[#4ECDC4]/80 transition">
+                  <div className="w-10 rounded-full overflow-hidden ring-2 ring-[#7420E6] hover:ring-[#7420E6]/80 transition">
                     <img
                       alt="User avatar"
                       src={`https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp`}

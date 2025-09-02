@@ -4,9 +4,9 @@ import HeroIcon from "./HeroIcon";
 
 const Hero = () => {
   return (
-    <section className=" lg:grid lg:h-screen lg:place-content-center">
-      <div className="mx-auto w-screen max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 md:grid md:grid-cols-2 md:items-center md:gap-4 lg:px-8 lg:py-32">
-        <div className="max-w-prose text-left">
+    <section className=" lg:grid lg:h-screen lg:place-content-center max-w-screen-xl mx-auto ">
+      <div className=" py-16  grid grid-cols-1 md:grid-cols-2 items-center justify-between">
+        <div className=" text-left w-3/4 mx-auto">
           <h1 className="text-4xl font-bold  sm:text-5xl">
             Discover books that
             <strong className="text-primary"> inspire </strong>
@@ -23,7 +23,7 @@ const Hero = () => {
               {" "}
               <Link to={"/books"}> Get Started </Link>
             </Button>{" "}
-            <Button size={"lg"} variant={"outline"}>
+            <Button className="cursor-pointer" size={"lg"} variant={"outline"}>
               Learn More
             </Button>
           </div>
