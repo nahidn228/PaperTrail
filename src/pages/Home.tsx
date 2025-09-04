@@ -1,6 +1,7 @@
 import BookSlider from "@/components/BookSlider";
 import BooksGallery from "@/components/home/BooksGallery";
 import CoreBooks from "@/components/home/CoreBooks";
+import { FeaturesSection } from "@/components/home/FeaturesSection";
 
 
 import { HeroSection } from "@/components/home/HeroSection";
@@ -17,6 +18,7 @@ const Home = () => {
     <div className="max-w-screen-xl mx-auto ">
       <HeroSection />
       {/* <Hero /> */}
+      <FeaturesSection />
       <BooksGallery items={gallery} />
       <CoreBooks
         heading={"Curated Books at Your Fingertips"}
