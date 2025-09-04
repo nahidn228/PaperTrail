@@ -33,6 +33,8 @@ import { ArrowLeft, BookOpen, Heart, Pencil } from "lucide-react";
 import { toast } from "sonner";
 import { Loader } from "@/components/Loader";
 import { useForm } from "react-hook-form";
+import { StarsBackground } from "@/components/ui/stars-background";
+import { ShootingStars } from "@/components/ui/shooting-stars";
 
 export default function BookDetails() {
   const { id } = useParams();
@@ -90,11 +92,6 @@ export default function BookDetails() {
 
   return (
     <div className=" max-w-4xl mx-auto p-6 ">
-
-
-
-
-
       {/* Header */}
       <Button
         onClick={() => navigate(-1)}
@@ -120,14 +117,6 @@ export default function BookDetails() {
 
         {/* Book Details */}
         <div className=" relative md:col-span-2 shadow-xl">
-
-
-
-
-
-
-
-
           <Card className="bg-card/50 border border-[#7420E6]/20 backdrop-blur-sm h-full">
             <CardHeader>
               <CardTitle className="text-3xl text-[#7420E6]">
@@ -285,6 +274,11 @@ export default function BookDetails() {
             </CardContent>
           </Card>
         </div>
+      </div>
+
+      <div className=" pointer-events-none">
+        <ShootingStars />
+        <StarsBackground />
       </div>
     </div>
   );

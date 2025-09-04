@@ -26,6 +26,8 @@ import type { IBook } from "@/types/types";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { ShootingStars } from "@/components/ui/shooting-stars";
+import { StarsBackground } from "@/components/ui/stars-background";
 
 const Books = () => {
   const { data: books, isLoading } = useGetAllBookQuery(null);
@@ -37,8 +39,17 @@ const Books = () => {
 
   if (isLoading) return <Loading text=" Getting Book from server " />;
 
+  // pagination logic
+  const totalBooks = books?.data?.length || 0;
+  const totalPages = Math.ceil(totalBooks / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentBooks = books?.data?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
   const handleDelete = async (book: IBook) => {
-    const id = book?._id;
+    const id = currentBooks?._id;
     console.log(id);
     if (!id) {
       toast.error("Book ID is missing, cannot delete");
@@ -54,14 +65,7 @@ const Books = () => {
     }
   };
 
-  // pagination logic
-  const totalBooks = books?.data?.length || 0;
-  const totalPages = Math.ceil(totalBooks / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentBooks = books?.data?.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  console.log(currentBooks);
 
   return (
     <div className="p-6 md:p-10 ">
@@ -86,23 +90,23 @@ const Books = () => {
           <TableBody>
             {currentBooks?.map((book: IBook) => (
               <TableRow
-                key={book._id}
+                key={book?._id}
                 className="hover:bg-[#7420E6]/5 dark:hover:bg-[#7420E6]/10 transition-colors"
               >
-                <TableCell className="font-medium">{book.title}</TableCell>
-                <TableCell>{book.author}</TableCell>
+                <TableCell className="font-medium">{book?.title}</TableCell>
+                <TableCell>{book?.author}</TableCell>
                 <TableCell>
                   <Badge
                     variant="outline"
                     className="border-[#7420E6]/30 text-[#7420E6] bg-[#7420E6]/10"
                   >
-                    {book.genre}
+                    {book?.genre}
                   </Badge>
                 </TableCell>
-                <TableCell>{book.isbn}</TableCell>
-                <TableCell>{book.copies}</TableCell>
+                <TableCell>{book?.isbn}</TableCell>
+                <TableCell>{book?.copies}</TableCell>
                 <TableCell>
-                  {book.available ? (
+                  {book?.available ? (
                     <Badge className="bg-[#7420E6] text-white">Available</Badge>
                   ) : (
                     <Badge className="bg-red-500 text-white">Unavailable</Badge>
@@ -111,7 +115,7 @@ const Books = () => {
 
                 <TableCell className="text-center">
                   <div className="flex justify-center gap-2">
-                    <Link to={`/books/${book._id}`}>
+                    <Link to={`/books/${book?._id}`}>
                       <Button
                         size="icon"
                         variant="ghost"
@@ -184,6 +188,11 @@ const Books = () => {
             Next
           </Button>
         </div>
+      </div>
+
+      <div className=" pointer-events-none">
+        <ShootingStars />
+        <StarsBackground />
       </div>
     </div>
   );

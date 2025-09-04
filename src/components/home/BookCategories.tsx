@@ -5,6 +5,7 @@ import type { IBook, IBookData } from "@/types/types";
 import { BookSkeleton } from "./BookSkeleton";
 import { BookCard } from "./BookCard";
 
+
 interface BookCategoriesProps {
   categories: { value: IBook["genre"]; label: string }[];
   selectedCategory: string;
@@ -132,7 +133,7 @@ export function BookCategories({
           </TabsContent>
         ))}
       </Tabs>
-
+     
       {/* Bottom decoration */}
       <div className="flex justify-center mt-16">
         <div className="w-32 h-1 bg-gradient-to-r from-transparent via-[#7420E6] to-transparent opacity-50"></div>
