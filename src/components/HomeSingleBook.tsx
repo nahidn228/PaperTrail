@@ -1,76 +1,110 @@
 import { Link } from "react-router";
 import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Badge } from "./ui/badge";
+import { Separator } from "./ui/separator";
+import { ArrowRight } from "lucide-react";
 
 const HomeSingleBook = () => {
   return (
-    <div className="max-w-3xl mx-auto p-6 py-10">
-      <div className="flex flex-col md:flex-row items-center gap-6">
-        <div className="flex-shrink-0">
-          <img
-            src="https://booksondemand.ma/cdn/shop/products/71Y67UzW5GL.jpg?v=1631701338&width=1946"
-            alt="Clean Code with Nahid"
-            className="w-48 h-72 object-cover rounded-lg shadow"
-          />
+    <div className="max-w-4xl mx-auto p-6 py-12 mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Book Cover */}
+        <div className="md:col-span-1">
+          <div className="w-full h-full min-h-[400px] rounded-xl shadow-xl border border-[#7420E6]/20 overflow-hidden transition-transform hover:scale-105">
+            <img
+              src="https://booksondemand.ma/cdn/shop/products/71Y67UzW5GL.jpg?v=1631701338&width=1946"
+              alt="Clean Code with Nahid"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
-        <div className="flex-1 space-y-2">
-          <p className="">
-            <span className="font-semibold border-2 text-[#4ECDC4]  rounded-2xl p-1 px-2">
-              PROGRAMMING
-            </span>
-          </p>
-          <p className="text-xl font-bold text-[#152942] dark:text-white mb-6 ">
-            Clean Code with Nahid
-          </p>
-          <p>
-            <span className="font-semibold text-[#152942] dark:text-[#4ECDC4]">
-              Author:
-            </span>{" "}
-            Nahid Hasan
-          </p>
-          <p>
-            <span className="font-semibold text-[#152942] dark:text-[#4ECDC4]">
-              Genre:
-            </span>{" "}
-            PROGRAMMING
-          </p>
-          <p>
-            <span className="font-semibold text-[#152942] dark:text-[#4ECDC4]">
-              ISBN:
-            </span>{" "}
-            19250036544
-          </p>
-          <p>
-            <span className="font-semibold text-[#152942] dark:text-[#4ECDC4]">
-              Description:
-            </span>{" "}
-            Received `true` for a non-boolean attribute `cl`.\n\nIf you want to
-            write it to the DOM, pass a string instead: cl=\"true\" or
-            cl=.\nvalidateProperty @
-            react-dom_client.js?v=2b195635:2473Understand this error",
-          </p>
-          <p>
-            <span className="font-semibold text-[#152942] dark:text-[#4ECDC4]">
-              Copies:
-            </span>
-            100
-          </p>
-          <p>
-            <span className="font-semibold text-[#152942] dark:text-[#4ECDC4]">
-              Price:
-            </span>{" "}
-            $20
-          </p>
-          <p>
-            <span className="font-semibold text-[#152942] dark:text-[#4ECDC4]">
-              Available:
-            </span>{" "}
-            YES
-          </p>
+
+        {/* Book Details */}
+        <div className="md:col-span-2">
+          <Card className="bg-card/60 border border-[#7420E6]/30 backdrop-blur-md shadow-lg h-full">
+            <CardHeader>
+              <CardTitle className="text-4xl font-bold text-[#7420E6]">
+                Clean Code with Nahid
+              </CardTitle>
+              <p className="text-lg text-muted-foreground mt-1">Nahid Hasan</p>
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              {/* Book Info */}
+              <div className="grid grid-cols-2 gap-4 text-sm md:text-base">
+                <div>
+                  <span className="font-semibold">Genre:</span>
+                  <Badge className="ml-2 bg-[#7420E6]/20 text-[#7420E6] border border-[#7420E6]/40">
+                    PROGRAMMING
+                  </Badge>
+                </div>
+                <div>
+                  <span className="font-semibold">ISBN:</span>
+                  <span className="ml-2 text-muted-foreground">
+                    19250036544
+                  </span>
+                </div>
+                <div>
+                  <span className="font-semibold">Price:</span>
+                  <span className="ml-2 text-muted-foreground">$20</span>
+                </div>
+                <div>
+                  <span className="font-semibold">Copies:</span>
+                  <span className="ml-2 text-muted-foreground">100</span>
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Availability */}
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">Status:</span>
+                <Badge className="bg-[#7420E6] text-white px-3 py-1 rounded-lg">
+                  Available
+                </Badge>
+              </div>
+
+              <Separator />
+
+              {/* Description */}
+              <div>
+                <h3 className="font-semibold mb-3 text-[#7420E6] text-lg md:text-xl">
+                  Description
+                </h3>
+                <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                  Creating maintainable, readable, and efficient code that
+                  developers love to work with. I focus on applying best
+                  practices, modern patterns, and clean architecture principles
+                  to build robust applications. Every line of code is written
+                  with clarity, scalability, and performance in mind, ensuring
+                  long-term sustainability and seamless collaboration.
+                </p>
+              </div>
+            </CardContent>
+
+            {/* Explore More Button */}
+            <CardFooter className="pt-4">
+              <Link to={"/books"}>
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="bg-[#7420E6] hover:bg-[#5a1ab4] text-white transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <span>Explore More</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </CardFooter>
+          </Card>
         </div>
       </div>
-      <Button className="flex  justify-self-end">
-        <Link to={"/books"}>Explore More {">"}</Link>
-      </Button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import BookSlider from "@/components/BookSlider";
+
 import { BookCategories } from "@/components/home/BookCategories";
 import BooksGallery from "@/components/home/BooksGallery";
 import CoreBooks from "@/components/home/CoreBooks";
@@ -60,9 +60,7 @@ const Home = () => {
         isLoading={isLoading}
         error={allBooksError}
       />
-      <div>
-        <BookSlider books={books} isLoading={isLoading} />
-      </div>
+    
       <HomeSingleBook />
     </div>
   );

@@ -24,14 +24,18 @@ import { Inspect, Trash2 } from "lucide-react";
 import { Link } from "react-router";
 import type { IBook } from "@/types/types";
 import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
 
 const Books = () => {
   const { data: books, isLoading } = useGetAllBookQuery(null);
   const [deleteBook, { isLoading: loadingDelete }] = useDeleteBookMutation();
 
-  if (isLoading) return <Loading text=" Getting Book from server " />;
+  // pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
-  // console.log(books.data);
+  if (isLoading) return <Loading text=" Getting Book from server " />;
 
   const handleDelete = async (book: IBook) => {
     const id = book?._id;
@@ -50,79 +54,101 @@ const Books = () => {
     }
   };
 
+  // pagination logic
+  const totalBooks = books?.data?.length || 0;
+  const totalPages = Math.ceil(totalBooks / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentBooks = books?.data?.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
   return (
-    <div className="p-8 ">
-      <h2 className="text-xl font-semibold mb-4">📚 Book List</h2>
-      <div className="max-w-screen mx-auto min-h-[calc(100vh-200px)]  border dark:border-[#4ECDC4] rounded-2xl p-8 shadow-xl">
-        <Table>
+    <div className="p-6 md:p-10 ">
+      <h2 className="text-2xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center gap-2">
+        📚 Book List
+      </h2>
+
+      <div className="overflow-x-auto rounded-xl border border-[#7420E6]/20 shadow-md bg-white dark:bg-slate-900 min-h-90">
+        <Table className="w-full text-sm">
           <TableHeader>
-            <TableRow>
-              <TableHead>Title</TableHead>
+            <TableRow className="bg-[#7420E6]/10 dark:bg-[#7420E6]/20">
+              <TableHead className="p-4">Title</TableHead>
               <TableHead>Author</TableHead>
               <TableHead>Genre</TableHead>
               <TableHead>ISBN</TableHead>
               <TableHead>Copies</TableHead>
               <TableHead>Availability</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead className="text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
+
           <TableBody>
-            {books?.data?.map((book: IBook) => (
-              <TableRow key={book._id}>
-                <TableCell>{book.title}</TableCell>
+            {currentBooks?.map((book: IBook) => (
+              <TableRow
+                key={book._id}
+                className="hover:bg-[#7420E6]/5 dark:hover:bg-[#7420E6]/10 transition-colors"
+              >
+                <TableCell className="font-medium">{book.title}</TableCell>
                 <TableCell>{book.author}</TableCell>
-                <TableCell>{book.genre}</TableCell>
+                <TableCell>
+                  <Badge
+                    variant="outline"
+                    className="border-[#7420E6]/30 text-[#7420E6] bg-[#7420E6]/10"
+                  >
+                    {book.genre}
+                  </Badge>
+                </TableCell>
                 <TableCell>{book.isbn}</TableCell>
                 <TableCell>{book.copies}</TableCell>
                 <TableCell>
-                  {book.available ? "Available" : "Unavailable"}
+                  {book.available ? (
+                    <Badge className="bg-[#7420E6] text-white">Available</Badge>
+                  ) : (
+                    <Badge className="bg-red-500 text-white">Unavailable</Badge>
+                  )}
                 </TableCell>
-                <TableCell>
-                  <div className="space-x-3">
-                    <Button
-                      className="cursor-pointer border-[#4ECDC4]"
-                      variant="outline"
-                      size={"sm"}
-                    >
-                      <Link to={`/books/${book._id}`}>
-                        <Inspect className="w-5 h-5 " />
-                      </Link>
-                    </Button>
-                    {/* Edit and Borrow Action */}
 
-                    {/* Delete Book */}
+                <TableCell className="text-center">
+                  <div className="flex justify-center gap-2">
+                    <Link to={`/books/${book._id}`}>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className="hover:bg-[#7420E6]/10 text-[#7420E6]"
+                      >
+                        <Inspect className="w-5 h-5" />
+                      </Button>
+                    </Link>
+
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button
-                          variant="outline"
-                          className="cursor-pointer border-[#4ECDC4]"
+                          size="icon"
+                          variant="ghost"
+                          className="hover:bg-red-500/10 text-red-500"
                         >
-                          <Trash2 className="w-5 h-5 text-[#ED4250] hover:text-[#152942] cursor-pointer" />
+                          <Trash2 className="w-5 h-5" />
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[425px]">
+                      <DialogContent className="sm:max-w-[400px]">
                         <DialogHeader>
-                          <DialogTitle>
-                            Are You sure want to delete this books ?
+                          <DialogTitle className="text-lg">
+                            Delete this book?
                           </DialogTitle>
                           <DialogDescription>
-                            This operation could'not be undone
+                            This action cannot be undone.
                           </DialogDescription>
                         </DialogHeader>
-
                         <DialogFooter>
                           <DialogClose asChild>
-                            <Button className="cursor-pointer">Cancel</Button>
+                            <Button variant="outline">Cancel</Button>
                           </DialogClose>
                           <Button
                             onClick={() => handleDelete(book)}
-                            className="bg-orange-600 cursor-pointer"
+                            className="bg-red-500 hover:bg-red-600 text-white"
                           >
-                            {loadingDelete ? (
-                              <Loading text="Deleting..." />
-                            ) : (
-                              "Delete Book"
-                            )}
+                            {loadingDelete ? "Deleting..." : "Delete"}
                           </Button>
                         </DialogFooter>
                       </DialogContent>
@@ -133,6 +159,31 @@ const Books = () => {
             ))}
           </TableBody>
         </Table>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex items-center justify-between mt-6">
+        <p className="text-sm text-muted-foreground">
+          Page {currentPage} of {totalPages}
+        </p>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

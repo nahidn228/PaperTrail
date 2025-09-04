@@ -34,7 +34,6 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="w-full py-10 md:py-20">
-        
         {/* Title */}
         <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-700 dark:text-slate-300 sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl leading-snug">
           {"Find papers instantly, not endlessly"
@@ -94,8 +93,7 @@ export function HeroSection() {
           transition={{ duration: 0.3, delay: 1.2 }}
           className="relative z-10 mt-12 md:mt-20 rounded-3xl border border-neutral-200 p-4 shadow-md dark:border-neutral-800"
         >
-          <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
-            
+          <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700 py-20">
             <BookSlider books={books} isLoading={isLoading} />
           </div>
         </motion.div>

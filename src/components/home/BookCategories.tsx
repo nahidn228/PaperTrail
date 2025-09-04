@@ -23,7 +23,7 @@ export function BookCategories({
   error,
 }: BookCategoriesProps) {
   return (
-    <section>
+    <section className="px-4 md:px-12 lg:px-24 py-12">
       <div className="text-center mb-12">
         {/* Badge */}
         <Badge
@@ -34,7 +34,7 @@ export function BookCategories({
         </Badge>
 
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-slate-700 dark:text-slate-300">
           Browse by{" "}
           <span className="bg-gradient-to-r from-[#7420E6]/70 via-[#7420E6] to-[#7420E6]/80 bg-clip-text text-transparent">
             Category
@@ -42,7 +42,7 @@ export function BookCategories({
         </h2>
 
         {/* Description */}
-        <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+        <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           Explore books organized by your favorite subjects and discover new
           genres
         </p>
@@ -53,9 +53,9 @@ export function BookCategories({
         onValueChange={setSelectedCategory}
         className="w-full"
       >
-        {/* TabsList */}
-        <div className="flex justify-center mb-12">
-          <TabsList className="inline-flex w-auto bg-card/50 backdrop-blur-sm border border-[#7420E6]/20 rounded-xl p-2 shadow-lg">
+        {/* Tabs List */}
+        <div className="flex justify-center mb-8 overflow-x-auto scrollbar-none">
+          <TabsList className="inline-flex w-auto bg-card/50 backdrop-blur-sm border border-[#7420E6]/20 rounded-xl p-2 shadow-lg flex-nowrap">
             {categories.map((category) => (
               <TabsTrigger
                 key={category.value}
@@ -68,15 +68,16 @@ export function BookCategories({
           </TabsList>
         </div>
 
+        {/* Tabs Content */}
         {categories.map((category) => (
           <TabsContent
             key={category.value}
             value={category.value}
             className="mt-8"
           >
-            {/* Category */}
+            {/* Category Info */}
             <div className="text-center mb-8">
-              <div className="backdrop-blur-sm bg-card/30 rounded-xl p-6 border border-[#7420E6]/10 max-w-md mx-auto shadow-2xl">
+              <div className="backdrop-blur-sm bg-card/30 rounded-xl p-6 border border-[#7420E6]/10 max-w-sm md:max-w-md mx-auto shadow-2xl">
                 <h3 className="text-2xl font-bold mb-2 text-[#7420E6] dark:text-[#7420E6]/80">
                   {category.label}
                 </h3>
@@ -88,14 +89,14 @@ export function BookCategories({
             </div>
 
             {isLoading ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
                 {[...Array(12)].map((_, index) => (
                   <BookSkeleton key={index} />
                 ))}
               </div>
             ) : error ? (
-              <div className="text-center py-16">
-                <div className="backdrop-blur-sm bg-card/50 rounded-xl p-8 border border-red-500/20 max-w-md mx-auto">
+              <div className="text-center py-16 px-4">
+                <div className="backdrop-blur-sm bg-card/50 rounded-xl p-6 md:p-8 border border-red-500/20 max-w-sm md:max-w-md mx-auto">
                   <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900 dark:to-red-800 rounded-full flex items-center justify-center shadow-lg">
                     <BookOpen className="h-8 w-8 text-red-600" />
                   </div>
@@ -108,8 +109,8 @@ export function BookCategories({
                 </div>
               </div>
             ) : filteredBooks.length === 0 ? (
-              <div className="text-center py-16">
-                <div className="backdrop-blur-sm bg-card/50 rounded-xl p-8 border border-[#7420E6]/10 max-w-md mx-auto shadow-2xl">
+              <div className="text-center py-16 px-4">
+                <div className="backdrop-blur-sm bg-card/50 rounded-xl p-6 md:p-8 border border-[#7420E6]/10 max-w-sm md:max-w-md mx-auto shadow-2xl">
                   <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#7420E6]/20 to-[#7420E6]/50 dark:from-[#7420E6]/20 dark:to-[#7420E6]/60 rounded-full flex items-center justify-center shadow-lg">
                     <BookOpen className="h-8 w-8 text-[#7420E6] dark:text-[#7420E6]/90" />
                   </div>
@@ -122,7 +123,7 @@ export function BookCategories({
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                 {filteredBooks.map((book) => (
                   <BookCard key={book._id} book={book} />
                 ))}

@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 
+
 export function FeaturesSection() {
   const features = [
     {
@@ -65,7 +66,9 @@ export function FeaturesSection() {
   return (
     <section className="w-full py-10 md:py-20">
       {/* Title */}
+      
       <h1 className="relative z-10 mx-auto max-w-2xl text-center text-2xl font-bold text-slate-700 dark:text-slate-300 sm:text-xl md:text-3xl lg:text-5xl  leading-snug">
+       
         {"Features That Empower Your Research".split(" ").map((word, index) => (
           <motion.span
             key={index}

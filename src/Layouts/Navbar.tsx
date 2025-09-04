@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -72,7 +72,9 @@ const Navbar = () => {
               </ul>
             </div>
           </div>
-          <PaperTrailLogo />
+          <Link to={"/"}>
+            <PaperTrailLogo />
+          </Link>
         </div>
 
         {/* Center nav links */}

@@ -11,6 +11,7 @@ import type { IBookData } from "@/types/types";
 import { Link } from "react-router";
 import { motion } from "motion/react";
 
+
 interface Props {
   items: IBookData[];
 }
@@ -40,10 +41,11 @@ const BooksGallery: React.FC<Props> = ({ items }) => {
   return (
     <section className="container mx-auto max-w-screen-xl py-24 px-4">
       {/* Section Header */}
+      
       <div className="mb-12 flex flex-col items-center justify-between gap-6 text-center md:flex-row md:text-left">
         <div>
           {/* Title */}
-          <h1 className="relative z-10 mx-auto max-w-2xl  text-2xl font-bold text-slate-700 dark:text-slate-300 sm:text-xl md:text-3xl lg:text-5xl  leading-snug px-0">
+          <h1 className="relative z-10 mx-auto max-w-2xl  text-2xl font-bold text-slate-700 dark:text-slate-300 sm:text-xl md:text-3xl lg:text-5xl  leading-snug md:mx-0">
             {" Read smarter, not harder".split(" ").map((word, index) => (
               <motion.span
                 key={index}
@@ -108,7 +110,7 @@ const BooksGallery: React.FC<Props> = ({ items }) => {
           {items?.map((item, idx) => (
             <CarouselItem
               key={item._id ?? idx}
-              className="max-w-[300px] pl-[12px] lg:max-w-[300px]"
+              className="max-w-[280px] pl-[12px] lg:max-w-[280px]"
             >
               <Link to={`/books/${item._id}`}>
                 <div className="group relative h-full min-h-[27rem] overflow-hidden rounded-xl bg-background shadow-md ring-1 ring-border/20 transition-all duration-300 hover:shadow-xl hover:ring-border/40">
