@@ -21,7 +21,7 @@ export interface Gallery4Item {
   image: string;
 }
 
-export interface items {
+interface Props {
   items: IBookData[];
 }
 
@@ -73,7 +73,7 @@ export interface items {
 //   },
 // ];
 
-const BooksGallery = ({ items }) => {
+const BooksGallery: React.FC<Props> = ({ items }) => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -148,9 +148,9 @@ const BooksGallery = ({ items }) => {
           }}
         >
           <CarouselContent className="ml-0 2xl:mr-[max(0rem,calc(50vw-700px))] 2xl:ml-[max(8rem,calc(50vw-700px))]">
-            {items?.map((item: IBookData, idx: string) => (
+            {items?.map((item: IBookData, idx: number) => (
               <CarouselItem
-                key={idx}
+                key={item._id ?? idx}
                 className="max-w-[320px] pl-[20px] lg:max-w-[360px]"
               >
                 <div className="group relative h-full min-h-[27rem] max-w-full overflow-hidden rounded-xl md:aspect-5/4 lg:aspect-16/9">
@@ -178,7 +178,7 @@ const BooksGallery = ({ items }) => {
           </CarouselContent>
         </Carousel>
         <div className="mt-8 flex justify-center gap-2">
-          {items?.data?.map((_, index: any) => (
+          {items?.map((_, index: any) => (
             <button
               key={index}
               className={`h-2 w-2 rounded-full transition-colors ${

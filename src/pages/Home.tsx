@@ -1,8 +1,9 @@
-import Banner from "@/components/Banner";
 import BookSlider from "@/components/BookSlider";
 import BooksGallery from "@/components/home/BooksGallery";
+import CoreBooks from "@/components/home/CoreBooks";
 
-import Hero from "@/components/home/Hero";
+
+import { HeroSection } from "@/components/home/HeroSection";
 import HomeSingleBook from "@/components/HomeSingleBook";
 import { useGetAllBookQuery } from "@/redux/API/bookApi";
 
@@ -14,10 +15,16 @@ const Home = () => {
   console.log(books);
   return (
     <div className="max-w-screen-xl mx-auto ">
-      <Hero />
+      <HeroSection />
+      {/* <Hero /> */}
       <BooksGallery items={gallery} />
-      {/* <CoreBooks coreBooks={books} /> */}
-      <Banner />
+      <CoreBooks
+        heading={"Curated Books at Your Fingertips"}
+        description={
+          "Explore hand-picked books from various genres. With PaperTrail, you can discover, organize, and share your favorite reads effortlessly. Each book comes with detailed insights to help you dive deeper into your reading journey."
+        }
+      />
+      {/* <Banner /> */}
       <div>
         <BookSlider books={books} isLoading={isLoading} />
       </div>

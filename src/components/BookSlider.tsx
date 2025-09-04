@@ -12,6 +12,7 @@ import type { IBookData } from "@/types/types";
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
 
+
 interface IBookSliderProps {
   books: { data: IBookData[] };
   isLoading: boolean;
@@ -26,8 +27,9 @@ const BookSlider: React.FC<IBookSliderProps> = ({ books, isLoading }) => {
   );
 
   return (
-    <div className="max-w-6xl mx-auto  px-4">
-      <h2 className="text-2xl md:text-3xl font-bold text-center text-[#152942] dark:text-white mb-6">
+    <div className="max-w-screen-xl mx-auto py-6  px-4">
+      
+      <h2 className="text-2xl md:text-3xl font-bold text-center  mb-6">
         Explore Our Books
       </h2>
       <Carousel

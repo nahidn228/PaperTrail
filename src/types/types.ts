@@ -8,7 +8,13 @@ export interface IBook {
   available: boolean;
 }
 
-export type IBookData = {
+export interface IBookData extends IBook {
+  description: string;
+  price: number;
+  photo: string;
+}
+
+export type TBookData = {
   _id?: string;
   title: string;
   author: string;
