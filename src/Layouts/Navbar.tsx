@@ -123,7 +123,10 @@ const Navbar = () => {
                 <DropdownMenuItem>Settings</DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => navigate("/login")}
+                className="cursor-pointer"
+              >
                 Log in
                 <DropdownMenuShortcut>⇧⌘</DropdownMenuShortcut>
               </DropdownMenuItem>

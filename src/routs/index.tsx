@@ -10,6 +10,7 @@ import { createBrowserRouter } from "react-router";
 import BookDetails from "@/pages/BookDetails";
 import LoginPage from "@/pages/Authentication/LoginPage";
 import RegisterPage from "@/pages/Authentication/Register";
+import ProfilePage from "@/pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         Component: RegisterPage,
         path: "/registration",
+      },
+      {
+        Component: ProfilePage,
+        path: "/profile",
       },
     ],
   },

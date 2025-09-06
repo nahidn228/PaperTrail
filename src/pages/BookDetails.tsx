@@ -31,10 +31,11 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, BookOpen, Heart, Pencil } from "lucide-react";
 
 import { toast } from "sonner";
-import { Loader } from "@/components/Loader";
+
 import { useForm } from "react-hook-form";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
+import Loader from "@/components/Loader";
 
 export default function BookDetails() {
   const { id } = useParams();

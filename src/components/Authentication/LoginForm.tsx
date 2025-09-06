@@ -158,7 +158,7 @@ export function LoginForm({
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
                   <Link
-                    to={"/register"}
+                    to={"/registration"}
                     className="underline underline-offset-4"
                   >
                     Sign up
