@@ -7,10 +7,9 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import type { IBookData } from "@/types/types";
+import type { IBookData } from "@/types";
 import { Link } from "react-router";
 import { motion } from "motion/react";
-
 
 interface Props {
   items: IBookData[];
@@ -41,7 +40,7 @@ const BooksGallery: React.FC<Props> = ({ items }) => {
   return (
     <section className="container mx-auto max-w-screen-xl py-24 px-4">
       {/* Section Header */}
-      
+
       <div className="mb-12 flex flex-col items-center justify-between gap-6 text-center md:flex-row md:text-left">
         <div>
           {/* Title */}

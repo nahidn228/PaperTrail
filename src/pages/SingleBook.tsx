@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { useEffect } from "react";
 import { toast } from "sonner";
-import type { IBook } from "@/types/types";
+import type { IBook } from "@/types";
 import Loading from "@/components/Loading";
 
 const SingleBook = () => {

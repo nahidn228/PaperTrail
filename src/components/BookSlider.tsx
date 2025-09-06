@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import Loading from "@/components/Loading";
-import type { IBookData } from "@/types/types";
+import type { IBookData } from "@/types";
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
 import { motion } from "motion/react";

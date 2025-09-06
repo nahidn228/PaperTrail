@@ -1,13 +1,13 @@
-
 import { BookCategories } from "@/components/home/BookCategories";
 import BooksGallery from "@/components/home/BooksGallery";
 import CoreBooks from "@/components/home/CoreBooks";
+
 import { FeaturesSection } from "@/components/home/FeaturesSection";
 
 import { HeroSection } from "@/components/home/HeroSection";
 import HomeSingleBook from "@/components/HomeSingleBook";
 import { useGetAllBookQuery } from "@/redux/API/bookApi";
-import type { IBookData } from "@/types/types";
+import type { IBookData } from "@/types";
 import { useState } from "react";
 
 const Home = () => {
@@ -20,8 +20,6 @@ const Home = () => {
   } = useGetAllBookQuery(null);
 
   const gallery = books?.data;
-
-
 
   const getFilteredBooks = () => {
     if (!books?.data) return [];
@@ -60,7 +58,7 @@ const Home = () => {
         isLoading={isLoading}
         error={allBooksError}
       />
-    
+
       <HomeSingleBook />
     </div>
   );

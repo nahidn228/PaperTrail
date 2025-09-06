@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/dialog";
 import { Inspect, Trash2 } from "lucide-react";
 import { Link } from "react-router";
-import type { IBook } from "@/types/types";
+import type { IBook } from "@/types";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";

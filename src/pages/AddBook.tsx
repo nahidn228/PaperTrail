@@ -21,7 +21,7 @@ import {
 import { useAddBookMutation } from "@/redux/API/bookApi";
 import Loading from "@/components/Loading";
 import { toast } from "sonner";
-import type { IBookData } from "@/types/types";
+import type { IBookData } from "@/types";
 import { useNavigate } from "react-router";
 
 const AddBook = () => {
@@ -101,11 +101,11 @@ const AddBook = () => {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select genre" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent className="w-full">
                       <SelectItem value="FICTION">FICTION</SelectItem>
                       <SelectItem value="NON_FICTION">NON_FICTION</SelectItem>
                       <SelectItem value="SCIENCE">SCIENCE</SelectItem>

@@ -8,6 +8,8 @@ import Home from "@/pages/Home";
 import SingleBook from "@/pages/SingleBook";
 import { createBrowserRouter } from "react-router";
 import BookDetails from "@/pages/BookDetails";
+import LoginPage from "@/pages/Authentication/LoginPage";
+import RegisterPage from "@/pages/Authentication/Register";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
       {
         path: "/borrow-summary",
         element: <BorrowSummary />,
+      },
+      {
+        Component: LoginPage,
+        path: "/login",
+      },
+      {
+        Component: RegisterPage,
+        path: "/registration",
       },
     ],
   },

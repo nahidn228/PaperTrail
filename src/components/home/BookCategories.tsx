@@ -1,10 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen } from "lucide-react";
-import type { IBook, IBookData } from "@/types/types";
+import type { IBook, IBookData } from "@/types";
 import { BookSkeleton } from "./BookSkeleton";
 import { BookCard } from "./BookCard";
-
 
 interface BookCategoriesProps {
   categories: { value: IBook["genre"]; label: string }[];
@@ -133,7 +132,7 @@ export function BookCategories({
           </TabsContent>
         ))}
       </Tabs>
-     
+
       {/* Bottom decoration */}
       <div className="flex justify-center mt-16">
         <div className="w-32 h-1 bg-gradient-to-r from-transparent via-[#7420E6] to-transparent opacity-50"></div>
