@@ -14,6 +14,7 @@ export interface IBookData extends IBook {
   description: string;
   price: number;
   photo: string;
+  updatedAt?: Date;
 }
 
 export type TBookData = {
@@ -36,8 +37,6 @@ export interface IBorrowSummary {
   };
   totalQuantity: number;
 }
-
-
 
 export interface ISidebarItem {
   title: string;

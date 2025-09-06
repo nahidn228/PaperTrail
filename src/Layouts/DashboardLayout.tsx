@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 
 import { Outlet } from "react-router";
 
-import { Mail, Phone, Shield, User, Wallet } from "lucide-react";
+import { BookCopyIcon, Mail, Phone, Shield, User, Wallet } from "lucide-react";
 import { useUserInfoQuery } from "@/redux/API/authApi";
 import {
   SidebarInset,
@@ -12,9 +12,24 @@ import {
 import { ModeToggle } from "@/components/mode-toggle";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AppSidebar } from "@/components/app-sidebar";
+import { useGetAllBookQuery } from "@/redux/API/bookApi";
+import type { IBookData } from "@/types";
+
 
 export default function DashboardLayout() {
   const { data: user } = useUserInfoQuery(undefined);
+  const { data } = useGetAllBookQuery({
+    page: 1,
+    limit: 1000,
+  });
+
+  const books = data?.data;
+  console.log(books);
+
+  const totalPrice = books?.reduce(
+    (sum: number, book: IBookData) => sum + book.price,
+    0
+  );
 
   return (
     <SidebarProvider>
@@ -30,7 +45,7 @@ export default function DashboardLayout() {
         </header>
 
         {/* User Info */}
-        <div className="grid md:grid-cols-2 p-4 gap-6 items-stretch">
+        <div className="grid md:grid-cols-2 p-4 gap-10 items-stretch">
           {/* User Info Card */}
           <Card className="w-full shadow-lg border border-muted flex flex-col">
             <CardHeader>
@@ -58,28 +73,34 @@ export default function DashboardLayout() {
             </CardContent>
           </Card>
 
-          {/* Wallet Card */}
+          {/* Books Card */}
           <Card className="w-full shadow-lg hover:shadow-xl transition rounded-2xl flex flex-col">
             <CardHeader className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Wallet className="w-6 h-6 text-indigo-600" />
-                <h2 className="text-lg font-semibold">Wallet Overview</h2>
+                <h2 className="text-lg font-semibold">Books Overview</h2>
               </div>
-              <p className={`px-2 py-1 rounded-md text-sm text-white`}>data</p>
+              <p
+                className={`px-2 py-1 rounded-md text-base  font-semibold text-white`}
+              >
+                {books?.length <= 9 ? `0${books?.length}` : books?.length}
+              </p>
             </CardHeader>
 
             <Separator />
 
             <CardContent className="space-y-3 mt-3 flex-1">
               <p className="flex items-center gap-2 text-muted-foreground">
-                <Mail className="w-4 h-4" /> email
+                <BookCopyIcon className="w-4 h-4" /> Total Books :{" "}
+                {books?.length <= 9 ? `0${books?.length}` : books?.length}
               </p>
 
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500">Balance</span>
+                <span className="text-sm text-gray-500">
+                  Total Price of All Books
+                </span>
                 <span className="text-2xl font-bold text-indigo-600">
-                  {/* ${data?.balance.toLocaleString()} */}
-                  Balance
+                  ${totalPrice?.toLocaleString()}
                 </span>
               </div>
             </CardContent>
@@ -89,6 +110,7 @@ export default function DashboardLayout() {
         <div className="flex flex-1 flex-col gap-4 p-4">
           <Outlet />
         </div>
+      
       </SidebarInset>
     </SidebarProvider>
   );

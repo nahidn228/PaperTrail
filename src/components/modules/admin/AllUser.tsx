@@ -31,9 +31,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { useGetAllUserQuery, useUpdateUserStatusMutation } from "@/redux/API/userApi";
+import {
+  useGetAllUserQuery,
+  useUpdateUserStatusMutation,
+} from "@/redux/API/userApi";
 import Loader from "@/components/Loader";
-
 
 interface IUser {
   _id: string;
@@ -52,11 +54,17 @@ const AllUser = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState("");
 
+  const handleClear = () => {
+    setSearchQuery("");
+    setFilterType("");
+  };
+
+  const limit = 2;
+
   const { data, refetch, isLoading } = useGetAllUserQuery({
     page,
-    limit: 5,
+    limit,
     role: filterType === "all" ? null : filterType,
-
     type: filterType || undefined,
     search: searchQuery || undefined,
   });
@@ -65,7 +73,7 @@ const AllUser = () => {
 
   const users = data?.data?.users;
   const total = data?.data?.total || 0;
-  const totalPages = Math.ceil(total / 5);
+  const totalPages = Math.ceil(total / limit);
 
   const handleStatusChange = async (userId: string, payload: boolean) => {
     const toastId = toast.loading("Updating User Status...");
@@ -98,8 +106,9 @@ const AllUser = () => {
   // Refetch on filters change
   useEffect(() => {
     setPage(1);
+
     refetch();
-  }, [filterType, refetch]);
+  }, [filterType, refetch, searchQuery]);
   if (isLoading) {
     return <Loader />;
   }
@@ -109,7 +118,7 @@ const AllUser = () => {
       <div className="container mx-auto px-4">
         <div className="mb-16 text-center">
           <h2 className="mb-6 text-3xl font-bold  lg:text-4xl">
-            All D.<span className="text-primary">Wallet </span> Members
+            All <span className="text-primary">PaperTrail </span> Members
           </h2>
         </div>
         {/* Filters */}
@@ -128,9 +137,9 @@ const AllUser = () => {
               <SelectItem value="all">All Roles</SelectItem>
               <SelectItem value="Admin">Admin</SelectItem>
               <SelectItem value="User">User</SelectItem>
-              <SelectItem value="Agent">Agent</SelectItem>
             </SelectContent>
           </Select>
+          <Button onClick={handleClear}>Clear</Button>
         </div>
 
         {/* Table */}
@@ -219,7 +228,7 @@ const AllUser = () => {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center items-center gap-2 mt-4">
+        {/* <div className="flex justify-center items-center gap-2 mt-4">
           <Button
             disabled={page === 1}
             onClick={() => setPage((prev) => prev - 1)}
@@ -235,6 +244,51 @@ const AllUser = () => {
           >
             Next <ChevronLast />
           </Button>
+        </div> */}
+
+        {/* Pagination */}
+        <div className="flex items-center justify-between mt-6">
+          {/* Page Info */}
+          <p className="text-sm text-muted-foreground">
+            Showing page {page} of {totalPages || 1}
+          </p>
+
+          {/* Pagination Controls */}
+          <div className="flex gap-2">
+            {/* Previous Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page === 1}
+              onClick={() => setPage((p) => p - 1)}
+            >
+              <ChevronFirst className="w-4 h-4 mr-1" />
+              Prev
+            </Button>
+
+            {/* Page Numbers (dynamic) */}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+              <Button
+                key={num}
+                variant={num === page ? "default" : "outline"}
+                size="sm"
+                onClick={() => setPage(num)}
+              >
+                {num}
+              </Button>
+            ))}
+
+            {/* Next Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page === totalPages || totalPages === 0}
+              onClick={() => setPage((p) => p + 1)}
+            >
+              Next
+              <ChevronLast className="w-4 h-4 ml-1" />
+            </Button>
+          </div>
         </div>
       </div>
     </section>

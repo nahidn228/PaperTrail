@@ -28,10 +28,11 @@ import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
+import { CardDescription, CardTitle } from "@/components/ui/card";
 
 const Books = () => {
   const [page, setPage] = useState(1);
-  const limit = 2;
+  const limit = 10;
   const { data: books, isLoading } = useGetAllBookQuery({ limit, page });
   const [deleteBook, { isLoading: loadingDelete }] = useDeleteBookMutation();
 
@@ -69,12 +70,18 @@ const Books = () => {
   console.log(books);
 
   return (
-    <div className="p-6 md:p-10 ">
-      <h2 className="text-2xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center gap-2">
+    <div className=" my-4">
+      {/* <h2 className="text-2xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center gap-2">
         📚 Book List
-      </h2>
+      </h2> */}
 
-      <div className="overflow-x-auto rounded-xl border border-[#7420E6]/20 shadow-md bg-white dark:bg-slate-900 min-h-90">
+      <div className="p-4">
+        <CardTitle>Books List</CardTitle>
+        <CardDescription>
+          Showing All book details
+        </CardDescription>
+      </div>
+      <div className="overflow-x-auto rounded-xl border border-[#7420E6]/20 shadow-md bg-card min-h-90">
         <Table className="w-full text-sm">
           <TableHeader>
             <TableRow className="bg-[#7420E6]/10 dark:bg-[#7420E6]/20">

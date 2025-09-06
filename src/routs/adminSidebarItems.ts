@@ -1,6 +1,6 @@
 
 import AllUser from "@/components/modules/admin/AllUser";
-import Analytics from "@/pages/admin/Analytics";
+import Analytics from "@/pages/Dashbord/Analytics";
 
 import type { ISidebarItem } from "@/types";
 // import { lazy } from "react";
