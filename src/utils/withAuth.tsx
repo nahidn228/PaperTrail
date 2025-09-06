@@ -1,5 +1,6 @@
 
-import { Loader } from "@/components/Loader";
+
+import Loader from "@/components/Loader";
 import type { TRole } from "@/constants/role";
 import { useUserInfoQuery } from "@/redux/API/authApi";
 

@@ -6,12 +6,19 @@ import ErrorPage from "@/pages/ErrorPage";
 import Home from "@/pages/Home";
 
 import SingleBook from "@/pages/SingleBook";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import BookDetails from "@/pages/BookDetails";
 import LoginPage from "@/pages/Authentication/LoginPage";
 import RegisterPage from "@/pages/Authentication/Register";
 import ProfilePage from "@/pages/ProfilePage";
+import { withAuth } from "@/utils/withAuth";
+import DashboardLayout from "@/Layouts/DashboardLayout";
+import { role, type TRole } from "@/constants/role";
+import { adminSidebarItems } from "./adminSidebarItems";
+import { generateRoutes } from "@/utils/generateRoutes";
+import { userSidebarItems } from "./userSidebarItems";
 
+const allRoles: TRole[] = ["Admin", "User"];
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +61,23 @@ const router = createBrowserRouter([
         Component: ProfilePage,
         path: "/profile",
       },
+    ],
+  },
+  {
+    Component: withAuth(DashboardLayout, [role.admin] as TRole[]),
+    path: "/admin",
+    children: [
+      { index: true, element: <Navigate to={"/admin/analytics"} /> },
+      ...generateRoutes(adminSidebarItems),
+    ],
+  },
+  {
+    Component: withAuth(DashboardLayout, allRoles as TRole[]),
+    path: "/user",
+
+    children: [
+      { index: true, element: <Navigate to={"/user/trans-history"} /> },
+      ...generateRoutes(userSidebarItems),
     ],
   },
 ]);

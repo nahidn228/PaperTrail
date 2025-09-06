@@ -40,7 +40,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="sticky top-0 z-50 border-b border-border bg-white  dark:bg-background max-w-screen-xl mx-auto ">
+    <div className="sticky top-0 z-50 border-b border-border bg-white  dark:bg-background  ">
       <div className="  py-2 flex items-center justify-between">
         {/* Left: Logo & mobile menu */}
         <div className="flex items-center gap-4">
