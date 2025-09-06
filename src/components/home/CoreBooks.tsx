@@ -135,8 +135,8 @@ const CoreBooks = ({
           <p className="absolute top-1/2 mx-auto max-w-sm -translate-y-3/4 text-center text-2xl font-black text-neutral-400 md:text-4xl dark:text-neutral-800">
             Everything You Need for Smarter Learning
           </p>
-          {features.map((item) => (
-            <DraggableCardBody className={item.className}>
+          {features.map((item, idx) => (
+            <DraggableCardBody key={idx} className={item.className}>
               <img
                 src={item.image}
                 alt={item.title}

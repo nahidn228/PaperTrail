@@ -17,7 +17,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { data } = useUserInfoQuery(undefined);
 
-  console.log(data);
+  const user = data?.data;
+  console.log(user);
 
   const navLinks = (
     <>
@@ -91,12 +92,19 @@ const Navbar = () => {
           <ModeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className="tooltip tooltip-bottom" data-tip={"User"}>
+              <div
+                className="tooltip tooltip-bottom"
+                data-tip={`${user ? user.name : "User"}`}
+              >
                 <div className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full overflow-hidden ring-2 ring-[#7420E6] hover:ring-[#7420E6]/80 transition">
                     <img
                       alt="User avatar"
-                      src={`https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp`}
+                      src={`${
+                        user?.photo
+                          ? user?.photo
+                          : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      }`}
                     />
                   </div>
                 </div>

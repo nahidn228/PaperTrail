@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import config from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -35,8 +36,22 @@ export const bookApi = createApi({
       invalidatesTags: ["books"],
     }),
 
+    // getAllBook: builder.query({
+    //   query: () => "/books",
+    //   providesTags: ["books"],
+    // }),
+
     getAllBook: builder.query({
-      query: () => "/books",
+      query: ({ page = 1, limit = 10 }) => ({
+        url: "/books",
+        params: { page, limit },
+      }),
+      transformResponse: (response: any) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
       providesTags: ["books"],
     }),
 

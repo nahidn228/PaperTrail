@@ -30,23 +30,24 @@ import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 
 const Books = () => {
-  const { data: books, isLoading } = useGetAllBookQuery(null);
+  const [page, setPage] = useState(1);
+  const limit = 2;
+  const { data: books, isLoading } = useGetAllBookQuery({ limit, page });
   const [deleteBook, { isLoading: loadingDelete }] = useDeleteBookMutation();
 
-  // pagination states
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const totalPages = books?.meta?.totalPages || 1;
+  const currentBooks = books?.data || [];
 
   if (isLoading) return <Loading text=" Getting Book from server " />;
 
   // pagination logic
-  const totalBooks = books?.data?.length || 0;
-  const totalPages = Math.ceil(totalBooks / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentBooks = books?.data?.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  // const totalBooks = books?.data?.length || 0;
+  // const totalPages = Math.ceil(totalBooks / itemsPerPage);
+  // const startIndex = (currentPage - 1) * itemsPerPage;
+  // const currentBooks = books?.data?.slice(
+  //   startIndex,
+  //   startIndex + itemsPerPage
+  // );
 
   const handleDelete = async (book: IBook) => {
     const id = currentBooks?._id;
@@ -65,7 +66,7 @@ const Books = () => {
     }
   };
 
-  console.log(currentBooks);
+  console.log(books);
 
   return (
     <div className="p-6 md:p-10 ">
@@ -166,24 +167,91 @@ const Books = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between mt-6">
+      {/* <div className="flex items-center justify-between mt-6">
         <p className="text-sm text-muted-foreground">
-          Page {currentPage} of {totalPages}
+          Page {page} of {totalPages}
         </p>
         <div className="flex gap-2">
           <Button
             variant="outline"
             size="sm"
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((p) => p - 1)}
+            disabled={page === 1}
+            onClick={() => setPage((p) => p - 1)}
           >
             Previous
           </Button>
           <Button
             variant="outline"
             size="sm"
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((p) => p + 1)}
+            disabled={page === totalPages}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            Next
+          </Button>
+        </div>
+      </div> */}
+
+      {/* Pagination Controls */}
+      {/* <div className="flex items-center justify-between mt-6">
+        <p className="text-sm text-muted-foreground">
+          Page {page} of {totalPages}
+        </p>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page === 1}
+            onClick={() => setPage((p) => p - 1)}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page === totalPages}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            Next
+          </Button>
+        </div>
+      </div> */}
+
+      <div className="flex items-center justify-between mt-6">
+        {/* Page Info */}
+        <p className="text-sm text-muted-foreground">
+          Page {page} of {totalPages}
+        </p>
+
+        {/* Pagination Controls */}
+        <div className="flex gap-2">
+          {/* Previous Button */}
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page === 1}
+            onClick={() => setPage((p) => p - 1)}
+          >
+            Previous
+          </Button>
+
+          {/* Page Numbers */}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+            <Button
+              key={num}
+              variant={num === page ? "default" : "outline"}
+              size="sm"
+              onClick={() => setPage(num)}
+            >
+              {num}
+            </Button>
+          ))}
+
+          {/* Next Button */}
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page === totalPages}
+            onClick={() => setPage((p) => p + 1)}
           >
             Next
           </Button>

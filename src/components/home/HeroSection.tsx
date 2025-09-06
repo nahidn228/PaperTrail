@@ -6,7 +6,10 @@ import BookSlider from "../BookSlider";
 import { SparklesCore } from "../ui/sparkles";
 
 export function HeroSection() {
-  const { data: books, isLoading } = useGetAllBookQuery(null);
+  const { data: books, isLoading } = useGetAllBookQuery({
+    limit: 10,
+  });
+  console.log(books);
 
   return (
     <div className="relative mx-auto mb-10 flex max-w-7xl flex-col items-center justify-center px-4">
