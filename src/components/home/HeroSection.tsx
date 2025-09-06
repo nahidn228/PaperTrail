@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { motion } from "motion/react";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
@@ -7,8 +8,10 @@ import { SparklesCore } from "../ui/sparkles";
 
 export function HeroSection() {
   const { data: books, isLoading } = useGetAllBookQuery({
-    limit: 10,
+    page: 1,
+    limit: 1000,
   });
+
   console.log(books);
 
   return (
@@ -97,7 +100,7 @@ export function HeroSection() {
           className="relative z-10 mt-12 md:mt-20 rounded-3xl border border-neutral-200 p-4 shadow-md dark:border-neutral-800"
         >
           <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700 py-20">
-            <BookSlider books={books} isLoading={isLoading} />
+            {books ? <BookSlider books={books} isLoading={isLoading} /> : ""}
           </div>
         </motion.div>
       </div>

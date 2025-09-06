@@ -17,7 +17,10 @@ const Home = () => {
     data: books,
     isLoading,
     error: allBooksError,
-  } = useGetAllBookQuery(null);
+  } = useGetAllBookQuery({
+    page: 1,
+    limit: 1000,
+  });
 
   const gallery = books?.data;
 
