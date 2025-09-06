@@ -1,8 +1,12 @@
+import config from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const borrowApi = createApi({
   reducerPath: "borrowApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: config.baseUrl,
+    credentials: "include",
+  }),
   tagTypes: ["borrow"],
   endpoints: (builder) => ({
     addBorrow: builder.mutation({

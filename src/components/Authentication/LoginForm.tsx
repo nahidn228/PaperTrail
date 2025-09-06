@@ -24,13 +24,12 @@ export function LoginForm({
 
   const navigate = useNavigate();
   const form = useForm();
-  
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
     const toastId = toast.loading("Please wait...");
     try {
       const res = await login(data).unwrap();
- 
 
       if (res.success) {
         toast.success("Login Successfully", { id: toastId });

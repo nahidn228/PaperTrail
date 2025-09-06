@@ -1,9 +1,11 @@
+import config from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const bookAPi = createApi({
+export const bookApi = createApi({
   reducerPath: "bookApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://paper-trail-one.vercel.app/api",
+    baseUrl: config.baseUrl,
+    credentials: "include",
   }),
   tagTypes: ["books", "borrow"],
   endpoints: (builder) => ({
@@ -69,4 +71,4 @@ export const {
   useDeleteBookMutation,
   useBorrowAddBookMutation,
   useBorrowGetAllBookQuery,
-} = bookAPi;
+} = bookApi;

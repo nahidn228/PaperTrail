@@ -47,7 +47,6 @@ export function SignUpForm({
     defaultValues: {
       name: "",
       email: "",
-   
       role: undefined,
       password: "",
       confirmPassword: "",
@@ -60,7 +59,7 @@ export function SignUpForm({
     const userInfo = {
       name: data.name,
       email: data.email,
-    
+
       role: data.role,
       password: data.password,
     };

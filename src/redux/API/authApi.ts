@@ -1,17 +1,20 @@
+import config from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const authAPi = createApi({
-  reducerPath: "authAPi",
+export const authApi = createApi({
+  reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://paper-trail-one.vercel.app/api",
+    baseUrl: config.baseUrl,
+    credentials: "include",
   }),
+  
   tagTypes: ["User"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (userInfo) => ({
         url: "/auth/login",
         method: "POST",
-        data: userInfo,
+        body: userInfo,
       }),
       invalidatesTags: ["User"],
     }),
@@ -26,8 +29,7 @@ export const authAPi = createApi({
       query: (userInfo) => ({
         url: "/auth/register",
         method: "POST",
-
-        data: userInfo,
+        body: userInfo,
       }),
     }),
 
@@ -56,4 +58,4 @@ export const {
   useLogOutMutation,
   useUserInfoQuery,
   useChangePasswordMutation,
-} = authAPi;
+} = authApi;

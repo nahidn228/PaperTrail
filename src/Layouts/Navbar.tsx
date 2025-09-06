@@ -11,9 +11,13 @@ import {
 } from "../components/ui/dropdown-menu";
 import { ModeToggle } from "../components/mode-toggle";
 import PaperTrailLogo from "@/components/ui/PaperTrailLogo";
+import { useUserInfoQuery } from "@/redux/API/authApi";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { data } = useUserInfoQuery(undefined);
+
+  console.log(data);
 
   const navLinks = (
     <>
