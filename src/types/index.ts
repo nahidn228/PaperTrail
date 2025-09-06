@@ -1,3 +1,5 @@
+import type { ComponentType } from "react";
+
 export interface IBook {
   _id?: string;
   title: string;
@@ -33,4 +35,15 @@ export interface IBorrowSummary {
     isbn: string;
   };
   totalQuantity: number;
+}
+
+
+
+export interface ISidebarItem {
+  title: string;
+  items: {
+    title: string;
+    url: string;
+    Component: ComponentType;
+  }[];
 }

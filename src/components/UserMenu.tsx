@@ -91,7 +91,7 @@ export default function UserMenu() {
           </DropdownMenuItem>
 
           <DropdownMenuItem>
-            <Link to={"/editProfile"} className="flex gap-2">
+            <Link to={"/profile"} className="flex gap-2">
               <UserPenIcon
                 size={16}
                 className="opacity-60"
