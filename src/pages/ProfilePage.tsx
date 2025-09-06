@@ -29,8 +29,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-
-
 import { toast } from "sonner";
 
 import Loader from "@/components/Loader";
@@ -49,16 +47,17 @@ export default function ProfilePage() {
     useUpdateUserInfoMutation();
   const userInfo = data?.data;
 
+  console.log(userInfo);
   const form = useForm({
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      role: "",
-      address: "",
-      profilePicture: "",
-      dateOfBirth: "",
-      nid: "",
+      name: userInfo?.name || "",
+      email: userInfo?.email || "",
+      phone: userInfo?.phone || "",
+      role: userInfo?.role,
+      address: userInfo?.address || "",
+      profilePicture: userInfo?.profilePicture || "",
+      dateOfBirth: userInfo?.dateOfBirth || "",
+      nid: userInfo?.nid || "",
     },
   });
 
@@ -142,7 +141,7 @@ export default function ProfilePage() {
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 ">
-            <TabsTrigger  value="profile">Profile Information</TabsTrigger>
+            <TabsTrigger value="profile">Profile Information</TabsTrigger>
             <TabsTrigger value="security">Security</TabsTrigger>
           </TabsList>
 
@@ -260,7 +259,7 @@ export default function ProfilePage() {
                                 <Select
                                   disabled={true}
                                   onValueChange={field.onChange}
-                                  value={field.value}
+                                  value={userInfo?.role}
                                 >
                                   <FormControl>
                                     <SelectTrigger className="w-full">
@@ -347,7 +346,7 @@ export default function ProfilePage() {
                   Change your password and security settings
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 w-full max-w-xl mx-auto">
                 <ChangePassword />
 
                 {/* <div className="space-y-2">

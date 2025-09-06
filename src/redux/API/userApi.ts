@@ -14,7 +14,7 @@ export const userApi = createApi({
       query: ({ email, ...payload }) => ({
         url: `/user/${email}`,
         method: "PATCH",
-        data: payload,
+        body: payload,
       }),
       invalidatesTags: ["User"],
     }),

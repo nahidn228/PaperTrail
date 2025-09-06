@@ -1,20 +1,13 @@
-import { Link, NavLink, useNavigate } from "react-router";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "../components/ui/dropdown-menu";
+import { Link, NavLink } from "react-router";
+
 import { ModeToggle } from "../components/mode-toggle";
 import PaperTrailLogo from "@/components/ui/PaperTrailLogo";
 import { useUserInfoQuery } from "@/redux/API/authApi";
+import { Button } from "@/components/ui/button";
+import UserMenu from "@/components/UserMenu";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+
   const { data } = useUserInfoQuery(undefined);
 
   const user = data?.data;
@@ -90,7 +83,16 @@ const Navbar = () => {
         {/* Right: Mode toggle & user */}
         <div className="flex items-center gap-3">
           <ModeToggle />
-          <DropdownMenu>
+          <div>
+            {user ? (
+              <UserMenu />
+            ) : (
+              <Button asChild size="sm">
+                <Link to="/login">Sign In</Link>
+              </Button>
+            )}
+          </div>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div
                 className="tooltip tooltip-bottom"
@@ -123,15 +125,26 @@ const Navbar = () => {
                 <DropdownMenuItem>Settings</DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => navigate("/login")}
-                className="cursor-pointer"
-              >
-                Log in
-                <DropdownMenuShortcut>⇧⌘</DropdownMenuShortcut>
-              </DropdownMenuItem>
+
+              {user ? (
+                <DropdownMenuItem
+                  onClick={() => navigate("/login")}
+                  className="cursor-pointer bg-red-400 text-black font-medium"
+                >
+                  Logout
+                  <DropdownMenuShortcut  className=" text-black ">⇧⌘</DropdownMenuShortcut>
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem
+                  onClick={() => navigate("/login")}
+                  className="cursor-pointer "
+                >
+                  Log in
+                  <DropdownMenuShortcut>⇧⌘</DropdownMenuShortcut>
+                </DropdownMenuItem>
+              )}
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
         </div>
       </div>
     </div>

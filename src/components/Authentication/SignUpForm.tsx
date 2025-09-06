@@ -59,10 +59,11 @@ export function SignUpForm({
     const userInfo = {
       name: data.name,
       email: data.email,
-
       role: data.role,
       password: data.password,
     };
+
+    console.log(userInfo);
     try {
       const result = await register(userInfo).unwrap();
 
@@ -163,7 +164,7 @@ export function SignUpForm({
                           </SelectTrigger>
                           <SelectContent className="w-full">
                             <SelectItem value="User">User</SelectItem>
-                            <SelectItem value="Agent">Agent</SelectItem>
+
                             <SelectItem value="Admin">Admin</SelectItem>
                           </SelectContent>
                         </Select>
