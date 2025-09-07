@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import UserMenu from "@/components/UserMenu";
 
 const Navbar = () => {
-
   const { data } = useUserInfoQuery(undefined);
 
   const user = data?.data;
@@ -18,8 +17,8 @@ const Navbar = () => {
       {[
         { label: "Home", to: "/" },
         { label: "All Books", to: "/books" },
-        { label: "Add Book", to: "/create-book" },
-        { label: "Borrow Summary", to: "/borrow-summary" },
+
+        { label: "Borrow Summary", to: "/all-borrow-summary" },
         { label: "Pricing", to: "/pricing" },
         { label: "Contact", to: "/contact" },
         { label: "Faq", to: "/faq" },

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Loading from "@/components/Loading";
 import { useBorrowGetAllBookQuery } from "@/redux/API/bookApi";
 import {
@@ -11,6 +12,8 @@ import {
 
 const BorrowSummary = () => {
   const { data, isLoading, isError } = useBorrowGetAllBookQuery(null);
+  console.log(data);
+
   console.log(data);
 
   if (isLoading) {
@@ -42,29 +45,30 @@ const BorrowSummary = () => {
       <h2 className="text-2xl font-semibold mb-4 text-center text-[#152942] dark:text-[#4ECDC4] pb-10">
         Borrow Summary
       </h2>
-       <div className="max-w-screen mx-auto min-h-[calc(100vh-200px)] border  dark:border-[#4ECDC4] rounded-2xl p-8 shadow-xl">
-
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Book Title</TableHead>
-            <TableHead>ISBN</TableHead>
-            <TableHead className="text-right">
-              Total Quantity Borrowed
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.data.map((item: any, idx: number) => (
-            <TableRow key={idx}>
-              <TableCell>{item.book.title}</TableCell>
-              <TableCell>{item.book.isbn}</TableCell>
-              <TableCell className="text-right">{item.totalQuantity}</TableCell>
+      <div className="max-w-screen mx-auto min-h-[calc(100vh-200px)] border  dark:border-[#4ECDC4] rounded-2xl p-8 shadow-xl">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Book Title</TableHead>
+              <TableHead>ISBN</TableHead>
+              <TableHead className="text-right">
+                Total Quantity Borrowed
+              </TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-       </div>
+          </TableHeader>
+          <TableBody>
+            {data.data.map((item: any, idx: number) => (
+              <TableRow key={idx}>
+                <TableCell>{item.book.title}</TableCell>
+                <TableCell>{item.book.isbn}</TableCell>
+                <TableCell className="text-right">
+                  {item.totalQuantity}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 };

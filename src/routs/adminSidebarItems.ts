@@ -1,5 +1,5 @@
-
 import AllUser from "@/components/modules/admin/AllUser";
+import AddBook from "@/pages/AddBook";
 import Analytics from "@/pages/Dashbord/Analytics";
 
 import type { ISidebarItem } from "@/types";
@@ -22,7 +22,11 @@ export const adminSidebarItems: ISidebarItem[] = [
         url: "/admin/all-users",
         Component: AllUser,
       },
-      
+      {
+        title: "Add Book",
+        url: "/admin/create-book",
+        Component: AddBook,
+      },
     ],
   },
 ];

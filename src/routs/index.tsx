@@ -1,14 +1,12 @@
 import App from "@/App";
-import AddBook from "@/pages/AddBook";
 
-import BorrowSummary from "@/pages/BorrowSummary";
+
 import ErrorPage from "@/pages/ErrorPage";
 import Home from "@/pages/Home";
 
 import SingleBook from "@/pages/SingleBook";
 import { createBrowserRouter, Navigate } from "react-router";
 import BookDetails from "@/pages/BookDetails";
-
 
 import ProfilePage from "@/pages/ProfilePage";
 import { withAuth } from "@/utils/withAuth";
@@ -21,6 +19,7 @@ import Contact from "@/pages/Contact";
 import Faq from "@/pages/Faq";
 import Pricing from "@/pages/Pricing";
 import AllBooks from "@/pages/AllBooks";
+import AllBorrowSummary from "@/pages/AllBorrowSummary";
 
 const allRoles: TRole[] = ["Admin", "User"];
 const router = createBrowserRouter([
@@ -37,10 +36,7 @@ const router = createBrowserRouter([
         path: "/books",
         element: <AllBooks />,
       },
-      {
-        path: "/create-book",
-        element: <AddBook />,
-      },
+
       {
         path: "/edit-book/:id",
         element: <SingleBook />,
@@ -50,8 +46,8 @@ const router = createBrowserRouter([
         element: <BookDetails />,
       },
       {
-        path: "/borrow-summary",
-        element: <BorrowSummary />,
+        path: "/all-borrow-summary",
+        element: <AllBorrowSummary />,
       },
       {
         Component: Faq,
