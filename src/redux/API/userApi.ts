@@ -32,7 +32,7 @@ export const userApi = createApi({
       query: ({ userId, isActive }) => ({
         url: `/user/status/${userId}`,
         method: "PUT",
-        data: { isActive },
+        body: { isActive },
       }),
       invalidatesTags: ["User"],
     }),

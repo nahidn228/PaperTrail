@@ -36,6 +36,7 @@ import { useForm } from "react-hook-form";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import Loader from "@/components/Loader";
+import { useUserInfoQuery } from "@/redux/API/authApi";
 
 export default function BookDetails() {
   const { id } = useParams();
@@ -45,6 +46,11 @@ export default function BookDetails() {
     isLoading,
     error,
   } = useGetSingleBookQuery(id as string);
+
+  const { data } = useUserInfoQuery(undefined);
+
+  const user = data?.data;
+  console.log(user);
 
   const [borrowBook, { isLoading: borrowLoading }] = useBorrowAddBookMutation();
 
@@ -57,16 +63,28 @@ export default function BookDetails() {
       toast.error(`Quantity cannot exceed ${bookData?.data?.copies} copies.`);
       return;
     }
-    console.log(data);
+
+    if (!user) {
+      toast.error("You are Not Permitted To Borrow Books");
+      return;
+    }
+    if (!data?.quantity || !data?.dueDate) {
+      toast.error("Please select Quantity and Due Date");
+      return;
+    }
 
     try {
-      await borrowBook({
+      const res = await borrowBook({
         bookId: bookData?.data?._id,
         quantity: data.quantity,
         dueDate: data.dueDate,
+        email: user?.email,
       }).unwrap();
-      toast.success("Book borrowed successfully!");
-      navigate("/borrow-summary");
+
+      if (res.success) {
+        toast.success("Book borrowed successfully!");
+        navigate("/all-borrow-summary");
+      }
     } catch (error) {
       console.error(error);
       toast.error("Failed to borrow book.");
@@ -186,13 +204,26 @@ export default function BookDetails() {
               {/* Actions */}
               <div className="flex flex-wrap gap-3 pt-4">
                 {/* Edit Book Button */}
-                <Button
-                  variant="outline"
-                  className="flex items-center gap-2 border-[#7420E6] text-[#7420E6] hover:bg-[#7420E6] hover:text-white transition-all"
-                >
-                  <Pencil className="h-4 w-4" />
-                  <Link to={`/edit-book/${book._id}`}>Edit Book</Link>
-                </Button>
+                {user?.role === "Admin" ? (
+                  <Button
+                    variant="outline"
+                    className="flex items-center gap-2 border-[#7420E6] text-[#7420E6] hover:bg-[#7420E6] hover:text-white transition-all"
+                  >
+                    <Pencil className="h-4 w-4" />
+                    <Link to={`/edit-book/${book._id}`}>Edit Book</Link>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    onClick={() =>
+                      toast.error("You are not Eligible for this Operation")
+                    }
+                    className="flex items-center gap-2 border-[#7420E6] text-[#7420E6] hover:bg-[#7420E6] hover:text-white transition-all"
+                  >
+                    <Pencil className="h-4 w-4" />
+                    Edit Book
+                  </Button>
+                )}
 
                 {/* Borrow Book Button with Dialog */}
                 <Dialog>
