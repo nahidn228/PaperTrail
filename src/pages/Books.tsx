@@ -20,7 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Inspect, Trash2 } from "lucide-react";
+import { ChevronFirst, ChevronLast, Inspect, Trash2 } from "lucide-react";
 import { Link } from "react-router";
 import type { IBook } from "@/types";
 import { toast } from "sonner";
@@ -51,12 +51,15 @@ const Books = () => {
   // );
 
   const handleDelete = async (book: IBook) => {
-    const id = currentBooks?._id;
+    const id = book?._id;
     console.log(id);
     if (!id) {
       toast.error("Book ID is missing, cannot delete");
       return;
     }
+
+    return toast.error(`You are not permitted to do this operation`);
+
     try {
       const res = await deleteBook(id).unwrap();
       console.log(res);
@@ -77,9 +80,7 @@ const Books = () => {
 
       <div className="p-4">
         <CardTitle>Books List</CardTitle>
-        <CardDescription>
-          Showing All book details
-        </CardDescription>
+        <CardDescription>Showing All book details</CardDescription>
       </div>
       <div className="overflow-x-auto rounded-xl border border-[#7420E6]/20 shadow-md bg-card min-h-90">
         <Table className="w-full text-sm">
@@ -238,7 +239,8 @@ const Books = () => {
             disabled={page === 1}
             onClick={() => setPage((p) => p - 1)}
           >
-            Previous
+            <ChevronFirst className="w-4 h-4 mr-1" />
+            Prev
           </Button>
 
           {/* Page Numbers */}
@@ -261,6 +263,7 @@ const Books = () => {
             onClick={() => setPage((p) => p + 1)}
           >
             Next
+            <ChevronLast className="w-4 h-4 ml-1" />
           </Button>
         </div>
       </div>

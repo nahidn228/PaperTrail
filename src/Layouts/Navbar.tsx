@@ -17,11 +17,10 @@ const Navbar = () => {
       {[
         { label: "Home", to: "/" },
         { label: "All Books", to: "/books" },
-
         { label: "Borrow Summary", to: "/all-borrow-summary" },
         { label: "Pricing", to: "/pricing" },
-        { label: "Contact", to: "/contact" },
         { label: "Faq", to: "/faq" },
+        { label: "Contact", to: "/contact" },
       ].map(({ label, to }) => (
         <li key={to}>
           <NavLink

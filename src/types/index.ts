@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import type { IconType } from "recharts/types/component/DefaultLegendContent";
 
 export interface IBook {
   _id?: string;
@@ -41,8 +42,9 @@ export interface IBorrowSummary {
 export interface ISidebarItem {
   title: string;
   items: {
-    title: string;
+    title: string ;
     url: string;
     Component: ComponentType;
+    icon?: IconType; 
   }[];
 }

@@ -80,7 +80,7 @@ const SingleBook = () => {
 
   return (
     <div className="py-10">
-      <h2 className="text-[#152942] dark:text-white mb-6 text-center font-bold text-4xl">
+      <h2 className="text-[#152942] dark:text-white mb-6 text-center font-bold text-4xl py-4">
         {bookData?.data?.title}
       </h2>
       <div className="max-w-2xl mx-auto  border rounded-2xl p-8 shadow-xl">
@@ -120,10 +120,16 @@ const SingleBook = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Genre</FormLabel>
-                  <Select onValueChange={field.onChange}>
+                  <Select
+                   
+                    onValueChange={field.onChange}
+                  >
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select genre" />
+                      <SelectTrigger className="w-full" >
+                        <SelectValue
+                          defaultValue={bookData?.data.genre}
+                          placeholder="Select genre"
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

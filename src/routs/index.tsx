@@ -1,6 +1,5 @@
 import App from "@/App";
 
-
 import ErrorPage from "@/pages/ErrorPage";
 import Home from "@/pages/Home";
 
@@ -20,6 +19,8 @@ import Faq from "@/pages/Faq";
 import Pricing from "@/pages/Pricing";
 import AllBooks from "@/pages/AllBooks";
 import AllBorrowSummary from "@/pages/AllBorrowSummary";
+import LoginPage from "@/pages/Authentication/LoginPage";
+import RegisterPage from "@/pages/Authentication/Register";
 
 const allRoles: TRole[] = ["Admin", "User"];
 const router = createBrowserRouter([
@@ -64,6 +65,14 @@ const router = createBrowserRouter([
       {
         Component: ProfilePage,
         path: "/profile",
+      },
+      {
+        Component: LoginPage,
+        path: "/login",
+      },
+      {
+        Component: RegisterPage,
+        path: "/registration",
       },
     ],
   },

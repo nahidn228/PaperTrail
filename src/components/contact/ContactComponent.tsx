@@ -207,7 +207,7 @@ const ContactComponent = ({
             <Button
               borderRadius="1.75rem"
               type="submit"
-              className="w-full rounded-lg bg-primary"
+              className="w-full rounded-lg "
               disabled={isLoading}
             >
               {isLoading ? "Sending..." : "Send Message"}
