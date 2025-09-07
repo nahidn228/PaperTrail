@@ -1,6 +1,7 @@
 import AllUser from "@/components/modules/admin/AllUser";
 import AddBook from "@/pages/AddBook";
 import Analytics from "@/pages/Dashbord/Analytics";
+import SingleBook from "@/pages/SingleBook";
 
 import type { ISidebarItem } from "@/types";
 // import { lazy } from "react";
@@ -26,6 +27,11 @@ export const adminSidebarItems: ISidebarItem[] = [
         title: "Add Book",
         url: "/admin/create-book",
         Component: AddBook,
+      },
+      {
+        title: "Add Book",
+        url: "/admin/edit-book/:id",
+        Component: SingleBook,
       },
     ],
   },

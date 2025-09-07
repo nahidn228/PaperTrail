@@ -3,7 +3,6 @@ import App from "@/App";
 import ErrorPage from "@/pages/ErrorPage";
 import Home from "@/pages/Home";
 
-import SingleBook from "@/pages/SingleBook";
 import { createBrowserRouter, Navigate } from "react-router";
 import BookDetails from "@/pages/BookDetails";
 
@@ -21,58 +20,60 @@ import AllBooks from "@/pages/AllBooks";
 import AllBorrowSummary from "@/pages/AllBorrowSummary";
 import LoginPage from "@/pages/Authentication/LoginPage";
 import RegisterPage from "@/pages/Authentication/Register";
+import PageTransition from "@/components/PageTransition";
 
 const allRoles: TRole[] = ["Admin", "User"];
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    Component: App,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/books",
-        element: <AllBooks />,
-      },
+        element: <PageTransition />,
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+          {
+            path: "/books",
+            element: <AllBooks />,
+          },
 
-      {
-        path: "/edit-book/:id",
-        element: <SingleBook />,
-      },
-      {
-        path: "/books/:id",
-        element: <BookDetails />,
-      },
-      {
-        path: "/all-borrow-summary",
-        element: <AllBorrowSummary />,
-      },
-      {
-        Component: Faq,
-        path: "/Faq",
-      },
-      {
-        Component: Contact,
-        path: "/contact",
-      },
-      {
-        Component: Pricing,
-        path: "/pricing",
-      },
-      {
-        Component: ProfilePage,
-        path: "/profile",
-      },
-      {
-        Component: LoginPage,
-        path: "/login",
-      },
-      {
-        Component: RegisterPage,
-        path: "/registration",
+          {
+            path: "/books/:id",
+            element: <BookDetails />,
+          },
+          {
+            path: "/all-borrow-summary",
+            element: <AllBorrowSummary />,
+          },
+          {
+            Component: Faq,
+            path: "/Faq",
+          },
+          {
+            Component: Contact,
+            path: "/contact",
+          },
+          {
+            Component: Pricing,
+            path: "/pricing",
+          },
+          {
+            Component: withAuth(ProfilePage),
+            path: "/profile",
+          },
+          {
+            Component: LoginPage,
+            path: "/login",
+          },
+          {
+            Component: RegisterPage,
+            path: "/registration",
+          },
+        ],
       },
     ],
   },

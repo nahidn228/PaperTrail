@@ -210,7 +210,7 @@ export default function BookDetails() {
                     className="flex items-center gap-2 border-[#7420E6] text-[#7420E6] hover:bg-[#7420E6] hover:text-white transition-all"
                   >
                     <Pencil className="h-4 w-4" />
-                    <Link to={`/edit-book/${book._id}`}>Edit Book</Link>
+                    <Link to={`/admin/edit-book/${book._id}`}>Edit Book</Link>
                   </Button>
                 ) : (
                   <Button

@@ -5,6 +5,7 @@ import CoreBooks from "@/components/home/CoreBooks";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
 
 import { HeroSection } from "@/components/home/HeroSection";
+import Integration from "@/components/home/Integration";
 
 import HomeSingleBook from "@/components/HomeSingleBook";
 import { useGetAllBookQuery } from "@/redux/API/bookApi";
@@ -64,6 +65,7 @@ const Home = () => {
       />
 
       <HomeSingleBook />
+      <Integration />
 
       {/* <WorldMapDemo /> */}
     </div>

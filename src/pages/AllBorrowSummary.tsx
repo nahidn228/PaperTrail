@@ -15,6 +15,8 @@ const AllBorrowSummary = () => {
   const { data, isLoading, isError } = useBorrowGetAllBookQuery(null);
   const borrowData: IBorrowItem[] = data?.data || [];
 
+  console.log(borrowData);
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[300px]">
