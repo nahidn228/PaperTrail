@@ -31,10 +31,11 @@ import {
 
 import { toast } from "sonner";
 
-import Loader from "@/components/Loader";
+
 import { useUserInfoQuery } from "@/redux/API/authApi";
 import { ChangePassword } from "@/components/modules/ChangePassword";
 import { useUpdateUserInfoMutation } from "@/redux/API/userApi";
+import { Loader } from "@/components/Loader";
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("profile");

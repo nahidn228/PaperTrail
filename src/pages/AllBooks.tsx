@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/components/Loading";
+
 import { useGetAllBookQuery } from "@/redux/API/bookApi";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,7 @@ import { CardSpotlight } from "@/components/ui/card-spotlight";
 import type { IBookData } from "@/types";
 import { useState } from "react";
 import { Link } from "react-router";
+import { Loader } from "@/components/Loader";
 
 const AllBooks = () => {
   const [page, setPage] = useState(1);
@@ -19,7 +20,7 @@ const AllBooks = () => {
   const totalPages = books?.meta?.totalPages || 1;
   const currentBooks = books?.data || [];
 
-  if (isLoading) return <Loading text="Getting books from server..." />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className="my-10 container mx-auto px-6">

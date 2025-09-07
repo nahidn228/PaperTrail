@@ -19,10 +19,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAddBookMutation } from "@/redux/API/bookApi";
-import Loading from "@/components/Loading";
+
 import { toast } from "sonner";
 import type { IBookData } from "@/types";
 import { useNavigate } from "react-router";
+import { Loader } from "@/components/Loader";
 
 const AddBook = () => {
   const navigate = useNavigate();
@@ -214,10 +215,8 @@ const AddBook = () => {
             />
 
             <Button type="submit" className="w-full">
-              {isLoading && <Loading text="Adding Your Book" />}
-              {isError && (
-                <Loading text="Ops! your Book is Not Added. Try Again" />
-              )}
+              {isLoading && <Loader />}
+
               {!isLoading && !isError && "Add Book"}
             </Button>
           </form>

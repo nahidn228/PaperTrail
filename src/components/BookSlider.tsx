@@ -7,11 +7,12 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import Loading from "@/components/Loading";
+
 import type { IBookData } from "@/types";
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
 import { motion } from "motion/react";
+import { Loader } from "./Loader";
 
 interface IBookSliderProps {
   books: { data: IBookData[] };
@@ -19,7 +20,7 @@ interface IBookSliderProps {
 }
 
 const BookSlider: React.FC<IBookSliderProps> = ({ books, isLoading }) => {
-  if (isLoading) return <Loading text="Loading books..." />;
+  if (isLoading) return <Loader />;
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const plugin = React.useRef(

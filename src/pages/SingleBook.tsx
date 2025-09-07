@@ -26,7 +26,7 @@ import {
 import { useEffect } from "react";
 import { toast } from "sonner";
 import type { IBook } from "@/types";
-import Loading from "@/components/Loading";
+
 
 const SingleBook = () => {
   const { id } = useParams();
@@ -241,7 +241,7 @@ const SingleBook = () => {
             />
 
             <Button type="submit" className="w-full">
-              {isLoading ? <Loading text="Updating" /> : "Update book"}
+              {isLoading ? "Updating" : "Update book"}
             </Button>
           </form>
         </Form>

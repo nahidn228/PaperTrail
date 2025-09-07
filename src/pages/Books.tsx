@@ -1,4 +1,3 @@
-import Loading from "@/components/Loading";
 import { useDeleteBookMutation, useGetAllBookQuery } from "@/redux/API/bookApi";
 import {
   Table,
@@ -29,6 +28,7 @@ import { useState } from "react";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { CardDescription, CardTitle } from "@/components/ui/card";
+import { Loader } from "@/components/Loader";
 
 const Books = () => {
   const [page, setPage] = useState(1);
@@ -39,7 +39,7 @@ const Books = () => {
   const totalPages = books?.meta?.totalPages || 1;
   const currentBooks = books?.data || [];
 
-  if (isLoading) return <Loading text=" Getting Book from server " />;
+  if (isLoading) return <Loader />;
 
   // pagination logic
   // const totalBooks = books?.data?.length || 0;

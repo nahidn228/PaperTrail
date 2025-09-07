@@ -1,10 +1,10 @@
 "use client";
 
-import Loading from "@/components/Loading";
 import { useBorrowGetAllBookQuery } from "@/redux/API/bookApi";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { Badge } from "@/components/ui/badge";
 import type { IBookData } from "@/types";
+import { Loader } from "@/components/Loader";
 
 interface IBorrowItem {
   book: IBookData;
@@ -18,11 +18,7 @@ const AllBorrowSummary = () => {
   console.log(borrowData);
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[300px]">
-        <Loading text="Your borrow data is loading..." />
-      </div>
-    );
+    return <Loader />;
   }
 
   if (isError) {

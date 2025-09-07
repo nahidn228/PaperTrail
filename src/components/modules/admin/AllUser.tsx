@@ -35,7 +35,7 @@ import {
   useGetAllUserQuery,
   useUpdateUserStatusMutation,
 } from "@/redux/API/userApi";
-import Loader from "@/components/Loader";
+import { Loader } from "@/components/Loader";
 
 interface IUser {
   _id: string;

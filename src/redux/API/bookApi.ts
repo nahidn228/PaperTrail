@@ -6,7 +6,6 @@ export const bookApi = createApi({
   reducerPath: "bookApi",
   baseQuery: fetchBaseQuery({
     baseUrl: config.baseUrl,
-    credentials: "include",
   }),
   tagTypes: ["books", "borrow"],
   endpoints: (builder) => ({

@@ -171,9 +171,9 @@ export function LoginForm({
           {/* Right Image */}
           <div className="relative hidden md:block bg-muted">
             <img
-              src="/placeholder.svg"
+              src="/login.jpg"
               alt="Login Banner"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.25] dark:grayscale"
+              className="absolute inset-0 h-full w-full object-cover "
             />
           </div>
         </CardContent>

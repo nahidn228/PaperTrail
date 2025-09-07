@@ -8,12 +8,14 @@ import { HeroSection } from "@/components/home/HeroSection";
 import Integration from "@/components/home/Integration";
 
 import HomeSingleBook from "@/components/HomeSingleBook";
+import { Loader } from "@/components/Loader";
 import { useGetAllBookQuery } from "@/redux/API/bookApi";
 import type { IBookData } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("SCIENCE");
+  const [loading, setLoading] = useState(true);
 
   const {
     data: books,
@@ -34,6 +36,18 @@ const Home = () => {
   };
 
   const filteredBooks = getFilteredBooks();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="max-w-screen-xl mx-auto ">

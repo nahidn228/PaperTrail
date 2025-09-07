@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import Loading from "@/components/Loading";
+
 import { useBorrowGetAllBookQuery } from "@/redux/API/bookApi";
 import {
   Table,
@@ -15,19 +15,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Loader } from "@/components/Loader";
 
 const BorrowSummary = () => {
   const { data, isLoading, isError } = useBorrowGetAllBookQuery(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const rowsPerPage = 10; 
+  const rowsPerPage = 10;
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[300px]">
-        <Loading text="Your borrow data is loading..." />
-      </div>
-    );
+    return <Loader />;
   }
 
   if (isError) {
