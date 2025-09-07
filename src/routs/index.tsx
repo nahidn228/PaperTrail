@@ -1,6 +1,6 @@
 import App from "@/App";
 import AddBook from "@/pages/AddBook";
-import Books from "@/pages/Books";
+
 import BorrowSummary from "@/pages/BorrowSummary";
 import ErrorPage from "@/pages/ErrorPage";
 import Home from "@/pages/Home";
@@ -8,8 +8,8 @@ import Home from "@/pages/Home";
 import SingleBook from "@/pages/SingleBook";
 import { createBrowserRouter, Navigate } from "react-router";
 import BookDetails from "@/pages/BookDetails";
-import LoginPage from "@/pages/Authentication/LoginPage";
-import RegisterPage from "@/pages/Authentication/Register";
+
+
 import ProfilePage from "@/pages/ProfilePage";
 import { withAuth } from "@/utils/withAuth";
 import DashboardLayout from "@/Layouts/DashboardLayout";
@@ -17,6 +17,10 @@ import { role, type TRole } from "@/constants/role";
 import { adminSidebarItems } from "./adminSidebarItems";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { userSidebarItems } from "./userSidebarItems";
+import Contact from "@/pages/Contact";
+import Faq from "@/pages/Faq";
+import Pricing from "@/pages/Pricing";
+import AllBooks from "@/pages/AllBooks";
 
 const allRoles: TRole[] = ["Admin", "User"];
 const router = createBrowserRouter([
@@ -31,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/books",
-        element: <Books />,
+        element: <AllBooks />,
       },
       {
         path: "/create-book",
@@ -50,12 +54,16 @@ const router = createBrowserRouter([
         element: <BorrowSummary />,
       },
       {
-        Component: LoginPage,
-        path: "/login",
+        Component: Faq,
+        path: "/Faq",
       },
       {
-        Component: RegisterPage,
-        path: "/registration",
+        Component: Contact,
+        path: "/contact",
+      },
+      {
+        Component: Pricing,
+        path: "/pricing",
       },
       {
         Component: ProfilePage,
@@ -76,7 +84,7 @@ const router = createBrowserRouter([
     path: "/user",
 
     children: [
-      { index: true, element: <Navigate to={"/user/trans-history"} /> },
+      { index: true, element: <Navigate to={"/user/analytics"} /> },
       ...generateRoutes(userSidebarItems),
     ],
   },

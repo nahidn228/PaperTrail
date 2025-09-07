@@ -5,6 +5,7 @@ import CoreBooks from "@/components/home/CoreBooks";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
 
 import { HeroSection } from "@/components/home/HeroSection";
+
 import HomeSingleBook from "@/components/HomeSingleBook";
 import { useGetAllBookQuery } from "@/redux/API/bookApi";
 import type { IBookData } from "@/types";
@@ -63,6 +64,8 @@ const Home = () => {
       />
 
       <HomeSingleBook />
+
+      {/* <WorldMapDemo /> */}
     </div>
   );
 };

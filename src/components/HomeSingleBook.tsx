@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Button } from "./ui/button";
+
 import {
   Card,
   CardContent,
@@ -10,6 +10,7 @@ import {
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { ArrowRight } from "lucide-react";
+import { Button } from "./ui/moving-border";
 
 const HomeSingleBook = () => {
   return (
@@ -93,13 +94,21 @@ const HomeSingleBook = () => {
             <CardFooter className="pt-4">
               <Link to={"/books"}>
                 <Button
-                  variant="default"
-                  size="lg"
-                  className="bg-[#7420E6] hover:bg-[#5a1ab4] text-white transition-all flex items-center gap-2 cursor-pointer"
+                  borderRadius="1.75rem"
+                  className="bg-primary dark:bg-slate-900 font-semibold text-white border-neutral-200 dark:border-slate-800 flex gap-2"
                 >
                   <span>Explore More</span>
                   <ArrowRight className="w-4 h-4" />
                 </Button>
+                {/* <Button
+              
+                  borderRadius="1.75rem"
+                  size="lg"
+                  className="bg-primary transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <span>Explore More</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button> */}
               </Link>
             </CardFooter>
           </Card>

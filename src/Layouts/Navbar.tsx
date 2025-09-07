@@ -20,8 +20,9 @@ const Navbar = () => {
         { label: "All Books", to: "/books" },
         { label: "Add Book", to: "/create-book" },
         { label: "Borrow Summary", to: "/borrow-summary" },
-        { label: "Register", to: "/registration" },
-        { label: "Login", to: "/login" },
+        { label: "Pricing", to: "/pricing" },
+        { label: "Contact", to: "/contact" },
+        { label: "Faq", to: "/faq" },
       ].map(({ label, to }) => (
         <li key={to}>
           <NavLink
