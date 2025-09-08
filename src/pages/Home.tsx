@@ -9,13 +9,17 @@ import Integration from "@/components/home/Integration";
 
 import HomeSingleBook from "@/components/HomeSingleBook";
 import { Loader } from "@/components/Loader";
+import { useTheme } from "@/components/theme-provider";
+import { Button } from "@/components/ui/button";
 import { useGetAllBookQuery } from "@/redux/API/bookApi";
 import type { IBookData } from "@/types";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("SCIENCE");
   const [loading, setLoading] = useState(true);
+  const { setTheme } = useTheme();
 
   const {
     data: books,
@@ -40,6 +44,18 @@ const Home = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
+
+      const theme = localStorage.getItem("vite-ui-theme");
+      console.log(theme);
+      if (theme !== "dark")
+        toast(
+          <div className="flex items-center justify-between gap-4">
+            <span>Use Dark mode for a better experience</span>
+            <Button size="sm" onClick={() => setTheme("dark")}>
+              Enable
+            </Button>
+          </div>
+        );
     }, 3000);
 
     return () => clearTimeout(timer);

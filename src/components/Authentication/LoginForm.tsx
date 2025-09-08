@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Link, useNavigate } from "react-router";
-
 import { toast } from "sonner";
 import { useLoginMutation } from "@/redux/API/authApi";
 
@@ -21,7 +21,6 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const [login] = useLoginMutation();
-
   const navigate = useNavigate();
   const form = useForm();
 
@@ -35,8 +34,6 @@ export function LoginForm({
         toast.success("Login Successfully", { id: toastId });
         navigate("/");
       }
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(err);
       toast.error(err.data.message, { id: toastId });
@@ -51,6 +48,12 @@ export function LoginForm({
         navigate("/verify", { state: data.email });
       }
     }
+  };
+
+  // quick-fill user credentials
+  const quickUsers = {
+    admin: { email: "admin@example.com", password: "admin123" },
+    user: { email: "user@example.com", password: "users123" },
   };
 
   return (
@@ -99,16 +102,36 @@ export function LoginForm({
                         </a>
                       </div>
                       <FormControl>
-                        <Input
-                          type="password"
-                          placeholder="********"
-                          {...field}
-                        />
+                        <Input type="password" placeholder="********" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+
+                {/* Quick Fill Buttons */}
+                <div className="grid grid-cols-2 gap-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      form.setValue("email", quickUsers.admin.email);
+                      form.setValue("password", quickUsers.admin.password);
+                    }}
+                  >
+                    Login as Admin
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      form.setValue("email", quickUsers.user.email);
+                      form.setValue("password", quickUsers.user.password);
+                    }}
+                  >
+                    Login as User
+                  </Button>
+                </div>
 
                 {/* Submit Button */}
                 <Button type="submit" className="w-full">

@@ -6,7 +6,7 @@ export function Loader() {
       <div className="relative flex items-center justify-center">
         {/* Spinning book icon (outer ring effect) */}
         <motion.div
-          className="w-20 h-20 flex items-center justify-center rounded-full border-4 border-primary/30"
+          className="w-20 h-20 flex items-center justify-center rounded-full border-4 border-primary dark:bg-white"
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
         >
@@ -19,7 +19,7 @@ export function Loader() {
 
         {/* Inner pulsing dot */}
         <motion.div
-          className="absolute w-6 h-6 rounded-full bg-primary"
+          className="absolute w-4 h-4 rounded-full bg-primary"
           animate={{ scale: [0.8, 1.2, 0.8] }}
           transition={{ repeat: Infinity, duration: 1 }}
         />
