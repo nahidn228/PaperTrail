@@ -78,7 +78,7 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, delay: 1 }}
-          className="relative z-10 mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap items-center justify-center"
+          className="relative z-10 mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap items-center justify-center "
         >
           <Link to={"/books"} className="w-full sm:w-auto">
             <Button className="w-full sm:w-60 transform rounded-lg bg-black px-6 py-6 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-[#7420E6] dark:text-white dark:hover:bg-[#7237c4] cursor-pointer md:text-xl">
@@ -99,7 +99,7 @@ export function HeroSection() {
           transition={{ duration: 0.3, delay: 1.2 }}
           className="relative z-10 mt-12 md:mt-20 rounded-3xl border border-neutral-200 p-4 shadow-md dark:border-neutral-800"
         >
-          <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700 py-20">
+          <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700 py-20 ">
             {books ? <BookSlider books={books} isLoading={isLoading} /> : ""}
           </div>
         </motion.div>

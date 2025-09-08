@@ -44,8 +44,8 @@ const AllBooks = () => {
 
               {/* Info */}
               <div className="mt-3">
-                <h3 className="text-lg font-bold text-white">{book.title}</h3>
-                <p className="text-sm text-neutral-200">{book.author}</p>
+                <h3 className="text-lg font-bold text-black dark:text-white">{book.title}</h3>
+                <p className="text-sm text-black dark:text-white">{book.author}</p>
               </div>
 
               {/* Genre & Price */}
@@ -56,7 +56,7 @@ const AllBooks = () => {
                 >
                   {book.genre}
                 </Badge>
-                <span className="font-semibold text-white">${book.price}</span>
+                <span className="font-semibold text-black dark:text-white">${book.price}</span>
               </div>
 
               {/* Action */}

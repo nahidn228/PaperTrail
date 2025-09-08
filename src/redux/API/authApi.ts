@@ -7,7 +7,7 @@ export const authApi = createApi({
     baseUrl: config.baseUrl,
     credentials: "include",
   }),
-  
+
   tagTypes: ["User"],
   endpoints: (builder) => ({
     login: builder.mutation({
@@ -46,6 +46,7 @@ export const authApi = createApi({
       query: () => ({
         url: "/user/me",
         method: "GET",
+        credentials: "include",
       }),
       providesTags: ["User"],
     }),
