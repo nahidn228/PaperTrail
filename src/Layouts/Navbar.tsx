@@ -1,152 +1,92 @@
 import { Link, NavLink } from "react-router";
-
-import { ModeToggle } from "../components/mode-toggle";
+import { ModeToggle } from "@/components/mode-toggle";
 import PaperTrailLogo from "@/components/ui/PaperTrailLogo";
 import { useUserInfoQuery } from "@/redux/API/authApi";
 import { Button } from "@/components/ui/button";
 import UserMenu from "@/components/UserMenu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Menu } from "lucide-react";
 
 const Navbar = () => {
   const { data } = useUserInfoQuery(undefined);
-
   const user = data?.data;
-  console.log(user);
 
-  const navLinks = (
-    <>
-      {[
-        { label: "Home", to: "/" },
-        { label: "All Books", to: "/books" },
-        { label: "Borrow Summary", to: "/all-borrow-summary" },
-        { label: "Pricing", to: "/pricing" },
-        { label: "Faq", to: "/faq" },
-        { label: "Contact", to: "/contact" },
-      ].map(({ label, to }) => (
-        <li key={to}>
-          <NavLink
-            to={to}
-            className={({ isActive }) =>
-              isActive
-                ? "font-medium text-[#7420E6] underline underline-offset-5"
-                : "font-medium text-foreground hover:text-[#7420E6] transition"
-            }
-          >
-            {label}
-          </NavLink>
-        </li>
-      ))}
-    </>
-  );
+  const links = [
+    { label: "Home", to: "/" },
+    { label: "All Books", to: "/books" },
+    { label: "Borrow Summary", to: "/all-borrow-summary" },
+    { label: "Pricing", to: "/pricing" },
+    { label: "Faq", to: "/faq" },
+    { label: "Contact", to: "/contact" },
+  ];
 
   return (
-    <div className="sticky top-0 z-50 border-b border-border bg-white  dark:bg-background  ">
-      <div className="  py-2 flex items-center justify-between">
-        {/* Left: Logo & mobile menu */}
-        <div className="flex items-center gap-4">
-          <div className="lg:hidden">
-            <div className="dropdown">
-              <button tabIndex={0} className="btn btn-ghost text-foreground">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-[#152942] dark:bg-background rounded-box w-52 space-y-1 border border-border"
-              >
-                {navLinks}
-              </ul>
-            </div>
-          </div>
-          <Link to={"/"}>
-            <PaperTrailLogo />
-          </Link>
-        </div>
+    <header className="sticky top-0 z-50 w-full bg-background border-b border-border shadow-sm">
+      <div className="container mx-auto flex items-center justify-between py-3 px-4 md:px-6">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2">
+          <PaperTrailLogo />
+        </Link>
 
-        {/* Center nav links */}
-        <div className="hidden lg:flex">
-          <ul className="menu menu-horizontal gap-4">{navLinks}</ul>
-        </div>
+        {/* Desktop links */}
+        <nav className="hidden lg:flex gap-6">
+          {links.map(({ label, to }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                `relative font-medium transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all ${
+                  isActive
+                    ? "text-primary after:w-full"
+                    : "text-foreground hover:text-primary hover:after:w-full"
+                }`
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
+        </nav>
 
-        {/* Right: Mode toggle & user */}
+        {/* Right section */}
         <div className="flex items-center gap-3">
           <ModeToggle />
-          <div>
-            {user ? (
-              <UserMenu />
-            ) : (
-              <Button asChild size="sm">
-                <Link to="/login">Sign In</Link>
-              </Button>
-            )}
-          </div>
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div
-                className="tooltip tooltip-bottom"
-                data-tip={`${user ? user.name : "User"}`}
-              >
-                <div className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full overflow-hidden ring-2 ring-[#7420E6] hover:ring-[#7420E6]/80 transition">
-                    <img
-                      alt="User avatar"
-                      src={`${
-                        user?.photo
-                          ? user?.photo
-                          : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      }`}
-                    />
-                  </div>
-                </div>
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="end">
-              <DropdownMenuLabel className="truncate">
-                My Account
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem onClick={() => navigate("/profile")}>
-                  Profile
-                  <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
 
-              {user ? (
-                <DropdownMenuItem
-                  onClick={() => navigate("/login")}
-                  className="cursor-pointer bg-red-400 text-black font-medium"
-                >
-                  Logout
-                  <DropdownMenuShortcut  className=" text-black ">⇧⌘</DropdownMenuShortcut>
-                </DropdownMenuItem>
-              ) : (
-                <DropdownMenuItem
-                  onClick={() => navigate("/login")}
-                  className="cursor-pointer "
-                >
-                  Log in
-                  <DropdownMenuShortcut>⇧⌘</DropdownMenuShortcut>
-                </DropdownMenuItem>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu> */}
+          {user ? (
+            <UserMenu />
+          ) : (
+            <Button asChild size="sm" variant="default">
+              <Link to="/login">Sign In</Link>
+            </Button>
+          )}
+
+          {/* Mobile menu */}
+          <div className="lg:hidden">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="w-6 h-6" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 p-2">
+                {links.map(({ label, to }) => (
+                  <DropdownMenuItem key={to} asChild>
+                    <Link to={to}>{label}</Link>
+                  </DropdownMenuItem>
+                ))}
+                <div className="border-t border-border mt-2 pt-2">
+                  {user ? <UserMenu /> : null}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
