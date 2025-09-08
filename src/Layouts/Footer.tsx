@@ -19,9 +19,9 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to={"/"}>
               <div className="flex items-center gap-2 md:gap-3">
-                <BookOpen className="w-6 h-6 md:w-8 md:h-8 text-[#4ECDC4]" />
+                <BookOpen className="w-6 h-6 md:w-8 md:h-8 text-primary" />
                 <span className="text-lg md:text-xl lg:text-2xl font-semibold  ">
-                  Paper<span className="text-[#7420E6]">Trail</span>
+                  PaperTrail
                 </span>
               </div>
             </Link>
@@ -45,20 +45,29 @@ const Footer = () => {
                   Browse Books
                 </Link>
               </li>
+             
               <li>
                 <Link
-                  to="/create-book"
-                  className="text-base text-muted-foreground hover:text-[#7420E6] transition-colors duration-200"
-                >
-                  Add New Book
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/borrow-summary"
+                  to="/all-borrow-summary"
                   className="text-base text-muted-foreground hover:text-[#7420E6] transition-colors duration-200"
                 >
                   Borrow Summary
+                </Link>
+              </li>
+               <li>
+                <Link
+                  to="/pricing"
+                  className="text-base text-muted-foreground hover:text-[#7420E6] transition-colors duration-200"
+                >
+                  Pricing
+                </Link>
+              </li>
+               <li>
+                <Link
+                  to="/contact"
+                  className="text-base text-muted-foreground hover:text-[#7420E6] transition-colors duration-200"
+                >
+                  Contact
                 </Link>
               </li>
             </ul>
