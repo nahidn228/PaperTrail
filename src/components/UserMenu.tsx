@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BookOpenIcon,
   Layers2Icon,
@@ -26,7 +25,6 @@ import {
   authApi,
 } from "@/redux/API/authApi";
 import { useAppDispatch } from "@/redux/hooks";
-import { toast } from "sonner";
 
 export default function UserMenu() {
   const { data, refetch } = useUserInfoQuery(undefined);
@@ -37,18 +35,10 @@ export default function UserMenu() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    try {
-      await logout(undefined);
-
-      toast.warning("Logout Successfully");
-
-      refetch();
-      dispatch(authApi.util.resetApiState());
-      navigate("/login");
-    } catch (error: any) {
-      console.error(error.message);
-      toast.error("Something went wrong");
-    }
+    await logout(undefined);
+    refetch();
+    dispatch(authApi.util.resetApiState());
+    navigate("/login");
   };
 
   return (
