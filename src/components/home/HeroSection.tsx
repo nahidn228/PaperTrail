@@ -99,7 +99,7 @@ export function HeroSection() {
           transition={{ duration: 0.3, delay: 1.2 }}
           className="relative z-10 mt-12 md:mt-20 rounded-3xl border border-neutral-200 p-4 shadow-md dark:border-neutral-800"
         >
-          <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700 py-20 ">
+          <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700 md:py-20 ">
             {books ? <BookSlider books={books} isLoading={isLoading} /> : ""}
           </div>
         </motion.div>

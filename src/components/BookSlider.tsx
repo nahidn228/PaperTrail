@@ -30,7 +30,7 @@ const BookSlider: React.FC<IBookSliderProps> = ({ books, isLoading }) => {
   return (
     <div className="max-w-screen-xl mx-auto py-6  px-4">
       {/* Title */}
-      <h1 className="relative z-10 mx-auto max-w-2xl text-center text-xl font-bold text-slate-700 dark:text-slate-300 sm:text-xl md:text-3xl  py-4 leading-snug">
+      <h1 className="relative z-10 mx-auto max-w-2xl text-center text-xl font-bold text-slate-700 dark:text-slate-300 sm:text-xl md:text-3xl  pb-8 leading-snug">
         {"Explore Our Books".split(" ").map((word, index) => (
           <motion.span
             key={index}
